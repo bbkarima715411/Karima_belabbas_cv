@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="fr">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Projets — Karima</title>
+  <meta name="description" content="Portfolio de projets de Karima avec filtres par technologie." />
+  <link rel="stylesheet" href="assets/style.css" />
+</head>
+
+<body>
+  <header class="site-header">
+    <a class="brand" href="index.html" aria-label="Retour accueil">K.</a>
+    <nav class="site-nav" aria-label="Navigation principale">
+      <a href="profil.html">Profil</a>
+      <a href="competences.html">Compétences</a>
+      <a href="experiences.html">Expériences</a>
+      <a href="projets.html">Projets</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+  </header>
+
+  <main class="wrap">
+    <h2>Portfolio</h2>
+    <div class="filters">
+      <button data-t="all" class="is-active">Tous</button>
+      <button data-t="JavaScript">JavaScript</button>
+      <button data-t="Django">Django</button>
+      <button data-t="Python">Python</button>
+    </div>
+
+    <section class="grid" id="projects">
+      <article class="card" data-t="JavaScript">
+        <img src="assets/img" alt="Projet" />
+        <h3>Jeu de Memory</h3>
+        <p>Timer, compteur de coups, responsive.</p>
+        <p><a href="#">Demo</a> · <a href="#">GitHub</a></p>
+      </article>
+
+      <article class="card" data-t="JavaScript Angular">
+        <img src="assets/img" alt="Projet" />
+        <h3>A venir</h3>
+        <p>Timer, compteur de coups, responsive.</p>
+        <p><a href="#">Demo</a> · <a href="#">GitHub</a></p>
+      </article>
+
+      <article class="card" data-t="Django Python">
+        <img src="assets/img" alt="Projet" />
+        <h3>Mini e-commerce écolo</h3>
+        <p>Panier, total, inscription.</p>
+        <p><a href="#">Demo</a> · <a href="#">GitHub</a></p>
+      </article>
+
+      <article class="card" data-t="PHP Symfony">
+        <img src="assets/img" alt="Projet" />
+        <h3>Vente aux enchères</h3>
+        <p>Timer, compteur de coups, responsive.</p>
+        <p><a href="#">Demo</a> · <a href="#">GitHub</a></p>
+      </article>
+
+      <article class="card" data-t="C# .Net">
+        <img src="assets/img" alt="Projet" />
+        <h3>A venir</h3>
+        <p>Timer, compteur de coups, responsive.</p>
+        <p><a href="#">Demo</a> · <a href="#">GitHub</a></p>
+      </article>
+    </section>
+  </main>
+
+  <script>document.getElementById('y').textContent = new Date().getFullYear()</script>
+  <script src="assets/app.js"></script>
+</body>
+
+</html>

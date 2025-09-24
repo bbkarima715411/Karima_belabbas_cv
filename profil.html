@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="fr">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Projets — Karima</title>
+    <meta name="description" content="Portfolio de projets de Karima avec filtres par technologie." />
+    <link rel="stylesheet" href="assets/style.css" />
+</head>
+
+<body>
+    <header class="site-header">
+        <a class="brand" href="index.html" aria-label="Retour accueil">K.</a>
+        <nav class="site-nav" aria-label="Navigation principale">
+            <a href="profil.html">Profil</a>
+            <a href="competences.html">Compétences</a>
+            <a href="experiences.html">Expériences</a>
+            <a href="projets.html">Projets</a>
+            <a href="contact.html">Contact</a>
+        </nav>
+    </header>
+
+
+    <main class="wrap">
+        <h1>Portfolio</h1>
+        <div class="filters" role="tablist" aria-label="Filtrer par techno">
+            <button data-t="all" class="is-active" role="tab" aria-selected="true">Tous</button>
+            <button data-t="JavaScript" role="tab">JavaScript</button>
+            <button data-t="Django" role="tab">Django</button>
+            <button data-t="Python" role="tab">Python</button>
+        </div>
+
+
+        <section class="grid" id="projects" aria-live="polite">
+            <article class="card" data-t="JavaScript">
+                <img src="assets/img" alt="Vignette projet" loading="lazy" />
+                <h3>Jeu de Memory</h3>
+                <p>Timer, compteur de coups, responsive.</p>
+                <p><a href="#" aria-label="Demo jeu memory">Demo</a> · <a href="#"
+                        aria-label="GitHub jeu memory">GitHub</a></p>
+            </article>
+
+            <article class="card" data-t="Django Python">
+                <img src="assets/img" alt="Vignette projet" loading="lazy" />
+                <h3>Mini e-commerce écolo</h3>
+                <p>Panier, total, inscription.</p>
+                <p><a href="#" aria-label="Demo e-commerce">Demo</a> · <a href="#"
+                        aria-label="GitHub e-commerce">GitHub</a></p>
+            </article>
+
+            <article class="card" data-t="Python">
+                <img src="assets/img" alt="Vignette projet" loading="lazy" />
+                <h3>Scripts utilitaires Python</h3>
+                <p>Automatisation simple, parsing de données.</p>
+                <p><a href="#" aria-label="Demo python">Demo</a> · <a href="#"
+                        aria-label="GitHub python">GitHub</a></p>
+            </article>
+        </section>
+    </main>
+</html>
