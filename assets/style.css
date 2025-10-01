@@ -1,0 +1,483 @@
+/* =========================================================
+   Thème noir & blanc – Karima (site CV)
+   - Sobre, responsive, accessible
+   - Un seul fichier pour toutes les pages
+   ========================================================= */
+
+/* ===== Variables ===== */
+:root {
+    --bg: #ffffff;
+    --text: #111111;
+    --accent: #000000;
+    /* Accent = noir (pour hover/boutons) */
+    --muted: #555555;
+    --border: rgba(17, 17, 17, .18);
+    --surface: #f5f5f5;
+    /* Fond cartes / surfaces */
+    --radius: 10px;
+    --font: "Inter", system-ui, sans-serif;
+    --maxw: 1000px;
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --bg: #0f0f0f;
+        --text: #f5f5f5;
+        --accent: #ffffff;
+        --muted: #bbbbbb;
+        --border: rgba(255, 255, 255, .18);
+        --surface: #141414;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation: none !important;
+        transition: none !important;
+        scroll-behavior: auto !important;
+    }
+}
+
+/* ===== Base ===== */
+* {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    margin: 0;
+    font-family: var(--font);
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+}
+
+img,
+svg {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+a {
+    color: var(--text);
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+    text-underline-offset: 2px;
+}
+
+/* ===== Header ===== */
+.site-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: color-mix(in oklab, var(--bg) 92%, transparent);
+    border-bottom: 1px solid var(--border);
+    backdrop-filter: saturate(180%) blur(8px);
+}
+
+.brand {
+    font-weight: 700;
+    font-size: 1.5rem;
+    color: var(--accent);
+    text-decoration: none;
+}
+
+.site-nav {
+    display: flex;
+    gap: 1rem;
+}
+
+.site-nav a {
+    color: var(--text);
+    text-decoration: none;
+    padding: 0.3rem 0.6rem;
+    border-radius: var(--radius);
+    transition: background .2s ease, color .2s ease;
+}
+
+.site-nav a:hover,
+.site-nav a:focus {
+    background: var(--accent);
+    color: var(--bg);
+    text-decoration: none;
+}
+
+/* ===== Hero (Accueil) ===== */
+.home-hero {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: calc(100vh - 70px);
+    text-align: center;
+    padding: 2rem;
+}
+
+.hero-left h1 {
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    margin: 0;
+    line-height: 1.2;
+}
+
+.hero-left h1 span {
+    display: block;
+    font-weight: 800;
+    color: var(--accent);
+}
+
+.hero-left small {
+    font-size: 1.2rem;
+    font-weight: 400;
+    color: var(--muted);
+}
+
+/* ===== Liens sociaux ===== */
+.social {
+    list-style: none;
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    padding: 1rem 0 0;
+    margin: 0;
+}
+
+.social a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 1px solid var(--text);
+    color: var(--text);
+    font-weight: 600;
+    text-decoration: none;
+    transition: transform .15s ease, background .2s ease, color .2s ease;
+}
+
+.social a:hover,
+.social a:focus {
+    background: var(--accent);
+    color: var(--bg);
+    transform: translateY(-1px);
+}
+
+/* ===== Conteneur générique (pages internes) ===== */
+.wrap {
+    max-width: var(--maxw);
+    margin-inline: auto;
+    padding: 2.5rem 1rem 3.5rem;
+}
+
+.wrap h1,
+.wrap h2 {
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+}
+
+.wrap h1 {
+    font-size: clamp(1.8rem, 1.2rem + 2vw, 2.6rem);
+    margin: 0 0 1.5rem;
+}
+
+.wrap h2 {
+    font-size: clamp(1.4rem, 1.1rem + 1vw, 2rem);
+    margin: 0 0 1rem;
+}
+
+/* ===== Boutons génériques ===== */
+.btn {
+    --btn-bg: var(--text);
+    --btn-fg: var(--bg);
+    display: inline-flex;
+    align-items: center;
+    gap: .5rem;
+    padding: .7rem 1rem;
+    border-radius: 12px;
+    background: var(--btn-bg);
+    color: var(--btn-fg);
+    border: 1px solid color-mix(in oklab, var(--text) 15%, transparent);
+    font-weight: 600;
+    text-decoration: none;
+    transition: filter .15s ease, transform .15s ease;
+}
+
+.btn:hover {
+    filter: saturate(110%) brightness(1.03);
+    transform: translateY(-1px);
+}
+
+.btn:focus {
+    outline: 3px solid color-mix(in oklab, var(--text) 35%, transparent);
+    outline-offset: 2px;
+}
+
+/* =========================================================
+     Page Compétences
+     ========================================================= */
+.twocol {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    align-items: start;
+}
+
+.twocol h2 {
+    font-size: clamp(1.2rem, 1rem + 1vw, 1.6rem);
+    margin: 0 0 1rem;
+}
+
+.twocol ul {
+    margin: .25rem 0 0;
+    padding-left: 1rem;
+}
+
+.twocol li {
+    margin: .35rem 0;
+}
+
+.skills {
+    display: grid;
+    gap: .9rem;
+}
+
+.skill {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: center;
+    gap: 1rem;
+}
+
+.skill span {
+    font-weight: 600;
+}
+
+/* Barres en noir & blanc pilotées par --v (ex: style="--v:70%") */
+.skill i {
+    --v: 0%;
+    position: relative;
+    display: block;
+    width: min(320px, 45vw);
+    height: 10px;
+    border-radius: 999px;
+    overflow: hidden;
+    background: color-mix(in oklab, var(--text) 10%, var(--bg));
+    border: 1px solid color-mix(in oklab, var(--text) 20%, transparent);
+}
+
+.skill i::after {
+    content: "";
+    position: absolute;
+    inset: 0 auto 0 0;
+    width: var(--v);
+    background: var(--text);
+    border-right: 1px solid color-mix(in oklab, var(--bg) 40%, transparent);
+    transform: translateZ(0);
+    transition: width .5s ease;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .skill i::after {
+        transition: none;
+    }
+}
+
+.note {
+    margin-top: 2rem;
+    color: var(--muted);
+}
+
+.note a {
+    color: var(--text);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+}
+
+/* =========================================================
+     Page Projets (filtres + cartes)
+     ========================================================= */
+.filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .5rem;
+    margin: 0 0 1.25rem;
+}
+
+.filters button {
+    appearance: none;
+    cursor: pointer;
+    border-radius: 999px;
+    padding: .45rem .9rem;
+    border: 1px solid color-mix(in oklab, var(--text) 20%, transparent);
+    background: var(--bg);
+    color: var(--text);
+    font-weight: 600;
+    transition: background .15s ease, color .15s ease, transform .15s ease;
+}
+
+.filters button:hover,
+.filters button:focus {
+    background: color-mix(in oklab, var(--text) 8%, var(--bg));
+    transform: translateY(-1px);
+}
+
+.filters .is-active {
+    background: var(--text);
+    color: var(--bg);
+    border-color: color-mix(in oklab, var(--text) 30%, transparent);
+}
+
+.grid {
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: repeat(3, 1fr);
+}
+
+@media (max-width: 900px) {
+    .grid {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+@media (max-width: 620px) {
+    .grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+.card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: transform .15s ease, box-shadow .15s ease;
+}
+
+.card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, .08);
+}
+
+.card img {
+    width: 100%;
+    aspect-ratio: 16/9;
+    object-fit: cover;
+    background: #e8e8e8;
+    filter: grayscale(100%);
+}
+
+.card h3 {
+    margin: .9rem 1rem .25rem;
+    font-size: 1.05rem;
+}
+
+.card p {
+    margin: .25rem 1rem 1rem;
+    color: var(--muted);
+}
+
+.card a {
+    color: var(--text);
+}
+
+.card a:hover {
+    text-decoration: underline;
+}
+
+/* =========================================================
+     Page Expériences (timeline)
+     ========================================================= */
+.timeline {
+    list-style: none;
+    margin: 0;
+    padding: 0 0 0 1.25rem;
+    border-left: 2px solid color-mix(in oklab, var(--text) 15%, transparent);
+}
+
+.timeline li {
+    position: relative;
+    padding: 0 0 1.25rem 0;
+}
+
+.timeline li::before {
+    content: "";
+    position: absolute;
+    left: -1.45rem;
+    top: .35rem;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--text);
+    box-shadow: 0 0 0 3px color-mix(in oklab, var(--text) 20%, transparent);
+}
+
+.timeline time {
+    display: block;
+    font-weight: 700;
+    color: var(--muted);
+    margin: 0 0 .25rem;
+}
+
+.timeline h3 {
+    margin: .15rem 0 .25rem;
+}
+
+/* =========================================================
+     Accessibilité : focus visibles
+     ========================================================= */
+a:focus,
+button:focus,
+input:focus,
+textarea:focus {
+    outline: 3px solid color-mix(in oklab, var(--text) 35%, transparent);
+    outline-offset: 2px;
+}
+
+/* ===== Responsive header simple ===== */
+@media (max-width: 700px) {
+    .site-nav {
+        display: none;
+    }
+
+    /* version simple, nav cachée sur mobile (on pourra ajouter un burger plus tard) */
+    .home-hero {
+        padding: 1rem;
+    }
+}
+
+/* =========================================================
+     Impression (export PDF propre)
+     ========================================================= */
+@media print {
+
+    .site-header,
+    .site-nav,
+    .home-hero .social {
+        display: none !important;
+    }
+
+    .home-hero {
+        min-height: auto;
+        text-align: left;
+    }
+
+    .wrap {
+        padding: 1rem 0;
+    }
+
+    a {
+        text-decoration: none;
+    }
+}
