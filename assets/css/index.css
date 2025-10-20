@@ -1,0 +1,142 @@
+/* =========================================================
+   INDEX.CSS — Centrage parfait + animation d’intro cinéma
+   ========================================================= */
+
+/* SECTION PRINCIPALE */
+.home-hero {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* centrage vertical */
+    justify-content: center;
+    /* centrage horizontal */
+    text-align: center;
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
+}
+
+/* === FOND ANIMÉ === */
+.codebg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    /* occupe bien toute la largeur */
+    height: 100vh;
+    /* toute la hauteur */
+    z-index: 0;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 1s ease;
+}
+
+/* Quand l’intro est finie, le canvas apparaît */
+.home-hero.intro-done .codebg {
+    opacity: 0.15;
+}
+
+/* En mode sombre, plus visible */
+body.dark .home-hero.intro-done .codebg {
+    opacity: 0.25;
+}
+
+/* === CONTENU === */
+.hero-center {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* garantit le centrage même en responsive */
+    justify-content: center;
+    text-align: center;
+    width: 100%;
+    max-width: 90vw;
+    opacity: 0;
+    transform: translateY(25px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+/* Activation de l'apparition */
+.hero-center.is-in {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* === NOM === */
+.hero-name {
+    font-size: clamp(2.4rem, 6vw, 4rem);
+    font-weight: 900;
+    color: var(--accent);
+    letter-spacing: -0.03em;
+    margin-bottom: 1rem;
+    text-align: center;
+}
+
+/* === INTITULÉ === */
+.hero-title {
+    font-size: 1.3rem;
+    color: var(--text);
+    opacity: 0.9;
+    text-align: center;
+    animation: fadeInTitle 1.5s ease forwards;
+    animation-delay: 2.8s;
+    /* apparaît juste après ton nom */
+    opacity: 0;
+}
+
+@keyframes fadeInTitle {
+    to {
+        opacity: 1;
+        transform: none;
+    }
+}
+
+/* === TYPEWRITER DU NOM === */
+#typing-name {
+    display: inline-block;
+    border-right: 3px solid var(--accent);
+    white-space: nowrap;
+    overflow: hidden;
+    animation:
+        typing 2.5s steps(20, end),
+        blink .8s step-end infinite alternate;
+}
+
+@keyframes typing {
+    from {
+        width: 0
+    }
+
+    to {
+        width: 100%
+    }
+}
+
+@keyframes blink {
+    50% {
+        border-color: transparent
+    }
+}
+
+/* === TRANSITIONS GÉNÉRALES === */
+html,
+body,
+.home-hero {
+    transition: background 0.4s ease, color 0.4s ease;
+}
+
+/* === RESPONSIVE === */
+@media (max-width: 700px) {
+    .hero-name {
+        font-size: 2.2rem;
+    }
+
+    .hero-title {
+        font-size: 1.1rem;
+    }
+}
