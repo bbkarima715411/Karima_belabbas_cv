@@ -1,6 +1,7 @@
 /* PROFIL – avatar centré et large, texte au centre */
 .wrap {
   max-width: 1000px;
+  margin: 0 auto;
 }
 
 .about {

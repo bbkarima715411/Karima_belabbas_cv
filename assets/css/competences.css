@@ -1,60 +1,60 @@
 /* COMPÉTENCES — barres animées + grille deux colonnes */
 .twocol {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 2rem;
-    align-items: start
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  align-items: start;
 }
 
-@media (max-width:820px) {
-    .twocol {
-        grid-template-columns: 1fr
-    }
+@media (max-width: 820px) {
+  .twocol {
+    grid-template-columns: 1fr;
+  }
 }
 
 .skills {
-    display: grid;
-    gap: 1rem;
-    margin-top: .5rem
+  display: grid;
+  gap: 1rem;
+  margin-top: 0.5rem;
 }
 
 .skill {
-    display: grid;
-    grid-template-columns: 140px 1fr;
-    gap: 1rem;
-    align-items: center
+  display: grid;
+  grid-template-columns: 140px 1fr;
+  gap: 1rem;
+  align-items: center;
 }
 
 .skill span {
-    font-weight: 700
+  font-weight: 700;
 }
 
 .skill-bar {
-    height: 10px;
-    background: var(--surface);
-    border-radius: 999px;
-    overflow: hidden;
-    border: 1px solid color-mix(in oklab, var(--text) 15%, transparent)
+  height: 10px;
+  background: var(--surface);
+  border-radius: 999px;
+  overflow: hidden;
+  border: 1px solid color-mix(in oklab, var(--text) 15%, transparent);
 }
 
 .skill-bar-fill {
-    display: block;
-    width: 0%;
-    height: 100%;
-    background: var(--accent);
-    transition: width 1s ease;
+  display: block;
+  width: 0%;
+  height: 100%;
+  background: var(--accent);
+  transition: width 1s ease;
 }
 
 /* quand la ligne .skill reçoit .is-in, on remplit jusqu'à --value */
 .skill.is-in .skill-bar-fill {
-    width: var(--value, 70%)
+  width: var(--value, 70%);
 }
 
 .soft {
-    margin: .4rem 0 0;
-    padding-left: 1rem
+  margin: 0.4rem 0 0;
+  padding-left: 1rem;
 }
 
 .soft li {
-    margin: .35rem 0
+  margin: 0.35rem 0;
 }
