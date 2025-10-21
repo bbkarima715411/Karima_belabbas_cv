@@ -1,45 +1,66 @@
 <!doctype html>
 <html lang="fr">
+
 <head>
-<meta charset="utf-8"/>
-<meta name="viewport" content="width=device-width,initial-scale=1"/>
-<title>Expériences — Karima</title>
-<meta name="description" content="Timeline des expériences et formations de Karima."/>
-<link rel="stylesheet" href="assets/style.css"/>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Expériences — Karima Belabbas</title>
+    <meta name="description" content="Timeline des formations et expériences de Karima.">
+    <link rel="stylesheet" href="assets/css/base.css">
+    <link rel="stylesheet" href="assets/css/experiences.css">
 </head>
+
 <body>
-<header class="site-header">
-<a class="brand" href="index.html" aria-label="Retour accueil">K.</a>
-<nav class="site-nav" aria-label="Navigation principale">
-<a href="profil.html">Profil</a>
-<a href="competences.html">Compétences</a>
-<a href="experiences.html">Expériences</a>
-<a href="projets.html">Projets</a>
-<a href="contact.html">Contact</a>
-</nav>
-</header>
+    <header class="site-header">
+        <a class="brand" href="index.html">K.</a>
+        <nav class="site-nav">
+            <a href="profil.html">Profil</a>
+            <a href="competences.html">Compétences</a>
+            <a href="experiences.html" aria-current="page">Expériences</a>
+            <a href="projets.html">Projets</a>
+            <a href="contact.html">Contact</a>
+        </nav>
+        <button class="theme-toggle">☀️ / 🌙</button>
+    </header>
 
+    <main class="wrap">
+        <h1 class="reveal" data-reveal>Expériences & Formations</h1>
 
-<main class="wrap">
-<h1>Expériences</h1>
+        <ol class="timeline">
+            <li class="reveal" data-reveal>
+                <div class="time">Avr. 2025 → Juil. 2025</div>
+                <h3>Web Application Developer — Interface3</h3>
+                <p>HTML, CSS, JS, Python, Django, Git. Projets en équipe.</p>
+            </li>
+            <li class="reveal" data-reveal>
+                <div class="time">Sept. 2024 → Nov. 2024</div>
+                <h3>Prête à coder — Interface3</h3>
+                <p>Bonnes pratiques, méthodes, mini-projets.</p>
+            </li>
+            <li class="reveal" data-reveal>
+                <div class="time">Juin 2024 → Juil. 2024</div>
+                <h3>Orientation métiers IT — Interface3</h3>
+                <p>Découverte des métiers & bases du web.</p>
+            </li>
+            <li class="reveal" data-reveal>
+                <div class="time">Jan. 2024</div>
+                <h3>Bootcamp (5 jours) — BeCode</h3>
+                <p>Challenge intensif, esprit d’équipe, résolution de problèmes.</p>
+            </li>
+            <li class="reveal" data-reveal>
+                <div class="time">Depuis Sept. 2024</div>
+                <h3>Cours d’anglais</h3>
+                <p>Perfectionnement continu – communication professionnelle.</p>
+            </li>
+            <li class="reveal" data-reveal>
+                <div class="time">Avant dev</div>
+                <h3>Expériences diverses</h3>
+                <p>Service client, coordination, leadership (compétences transférables).</p>
+            </li>
+        </ol>
+    </main>
 
-
-<section>
-<ol class="timeline">
-<li>
-<time>2024–2025</time>
-<h3>Formation — Interface3</h3>
-<p>Cursus orienté Front/Fullstack (HTML, CSS, JS, Django, Python, Git).</p>
-</li>
-<li>
-<time>Avant dev</time>
-<h3>Expériences diverses</h3>
-<p>Service client, coordination, leadership. Compétences transférables vers le développement.</p>
-</li>
-</ol>
-</section>
-</main>
-
-<script src="assets/app.js"></script>
+    <script src="assets/app.js" defer></script>
 </body>
+
 </html>

@@ -1,0 +1,139 @@
+/* =========================================================
+   BASE.CSS – Thème violet et animations globales
+   ========================================================= */
+
+/* --- Variables de couleur (mode clair par défaut) --- */
+:root {
+    --bg: #ffffff;
+    --text: #111111;
+    --accent: #9C27B0;
+    /* violet principal */
+    --muted: #666666;
+    --surface: #f4f4f8;
+    --radius: 12px;
+    --font: "Inter", system-ui, sans-serif;
+    --header-h: 72px;
+}
+
+/* --- Mode sombre activé via body.dark --- */
+body.dark {
+    --bg: #0f0f0f;
+    --text: #f5f5f5;
+    --accent: #bb86fc;
+    --muted: #aaaaaa;
+    --surface: #1a1a1a;
+}
+
+/* --- Style de base --- */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font);
+    line-height: 1.6;
+    transition: background 0.3s ease, color 0.3s ease;
+}
+
+a {
+    color: var(--text);
+    text-decoration: none;
+}
+
+a:hover {
+    color: var(--accent);
+}
+
+/* --- En-tête / barre de navigation --- */
+.site-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 2rem;
+    height: var(--header-h);
+    background: var(--surface);
+    border-bottom: 1px solid var(--muted);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.brand {
+    font-weight: 800;
+    font-size: 1.5rem;
+    color: var(--accent);
+}
+
+.site-nav {
+    display: flex;
+    gap: 1rem;
+}
+
+.site-nav a {
+    position: relative;
+    padding: 0.4rem 0.6rem;
+    transition: color 0.2s;
+}
+
+.site-nav a::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 0%;
+    height: 2px;
+    background: var(--accent);
+    transition: width 0.3s ease;
+}
+
+.site-nav a:hover::after {
+    width: 100%;
+}
+
+/* --- Bouton mode sombre / clair --- */
+.theme-toggle {
+    cursor: pointer;
+    background: var(--accent);
+    color: var(--bg);
+    border: none;
+    border-radius: var(--radius);
+    padding: 0.4rem 0.8rem;
+    font-weight: 600;
+    transition: background 0.3s ease;
+}
+
+.theme-toggle:hover {
+    filter: brightness(1.2);
+}
+
+/* --- Animation d'apparition au scroll (commune à tout le site) --- */
+.reveal {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.reveal.is-in {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* --- Boutons généraux --- */
+.btn {
+    display: inline-block;
+    background: var(--accent);
+    color: var(--bg);
+    padding: 0.6rem 1rem;
+    border-radius: var(--radius);
+    transition: transform 0.2s, filter 0.2s;
+    font-weight: 600;
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+    filter: brightness(1.1);
+}

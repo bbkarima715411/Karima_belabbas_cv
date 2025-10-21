@@ -1,0 +1,66 @@
+/* EXPÉRIENCES — Timeline violette élégante */
+.timeline {
+    list-style: none;
+    margin: 1.2rem 0 0;
+    padding: 0 0 0 1.4rem;
+    border-left: 3px solid var(--accent);
+    position: relative;
+}
+
+.timeline::before {
+    content: "";
+    position: absolute;
+    left: -6px;
+    top: 0;
+    bottom: 0;
+    width: 3px;
+    background: linear-gradient(var(--accent), transparent);
+    opacity: .25;
+}
+
+.timeline li {
+    position: relative;
+    padding: 0 0 1.35rem 0;
+}
+
+.timeline li::marker {
+    content: ""
+}
+
+.timeline li::before {
+    content: "";
+    position: absolute;
+    left: -1.65rem;
+    top: .35rem;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--accent);
+    box-shadow: 0 0 0 4px color-mix(in oklab, var(--accent) 30%, transparent);
+}
+
+.time {
+    font-weight: 800;
+    color: var(--muted);
+    margin-bottom: .15rem
+}
+
+h3 {
+    margin: .1rem 0 .25rem;
+    color: var(--text)
+}
+
+p {
+    margin: 0;
+    color: var(--muted)
+}
+
+@media (max-width:600px) {
+    .timeline {
+        padding-left: 1rem
+    }
+
+    .timeline li::before {
+        left: -1.35rem
+    }
+}
