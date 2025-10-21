@@ -1,5 +1,5 @@
 /* =========================================================
-   app.js — Gestion du mode sombre, intro et fond animé
+    app.js — Gestion du mode sombre, intro et fond animé
    ========================================================= */
 
 /* ===== MODE SOMBRE / CLAIR ===== */
@@ -23,7 +23,7 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 /* =========================================================
-   INTRO : affichage progressif (nom -> fond animé)
+    INTRO : affichage progressif (nom -> fond animé)
    ========================================================= */
 (() => {
     const nameEl = document.getElementById('typing-name');
@@ -48,7 +48,7 @@ document.addEventListener('DOMContentLoaded', () => {
 })();
 
 /* =========================================================
-   FOND ANIMÉ : "code qui défile" (canvas)
+    FOND ANIMÉ : "code qui défile" (canvas)
    ========================================================= */
 (() => {
     const canvas = document.getElementById('codebg');

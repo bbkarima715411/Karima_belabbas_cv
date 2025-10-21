@@ -1,66 +1,78 @@
-/* EXPÉRIENCES — Timeline violette élégante */
+/* EXPÉRIENCES – Timeline violette ample et lisible */
+.wrap {
+  max-width: 1200px;
+} /* ← plus large que d’habitude */
+
+h1 {
+  color: var(--accent);
+  margin: 0 0 1.5rem;
+  font-size: clamp(1.8rem, 2vw, 2.2rem);
+}
+
 .timeline {
-    list-style: none;
-    margin: 1.2rem 0 0;
-    padding: 0 0 0 1.4rem;
-    border-left: 3px solid var(--accent);
-    position: relative;
+  list-style: none;
+  margin: 1rem 0 0;
+  padding: 0 0 0 2.2rem;
+  border-left: 4px solid var(--accent);
+  position: relative;
 }
-
 .timeline::before {
-    content: "";
-    position: absolute;
-    left: -6px;
-    top: 0;
-    bottom: 0;
-    width: 3px;
-    background: linear-gradient(var(--accent), transparent);
-    opacity: .25;
+  /* rail en pointillés, discret */
+  content: "";
+  position: absolute;
+  left: -4px;
+  top: 0;
+  bottom: 0;
+  border-left: 4px dashed color-mix(in oklab, var(--accent) 65%, transparent);
+  opacity: 0.22;
 }
-
 .timeline li {
-    position: relative;
-    padding: 0 0 1.35rem 0;
+  position: relative;
+  padding: 0 0 2rem 0;
+  margin-left: 0.2rem;
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 0.6s, transform 0.6s;
 }
-
-.timeline li::marker {
-    content: ""
+.timeline li.reveal.is-in {
+  opacity: 1;
+  transform: translateY(0);
 }
-
 .timeline li::before {
-    content: "";
-    position: absolute;
-    left: -1.65rem;
-    top: .35rem;
-    width: 12px;
-    height: 12px;
-    border-radius: 50%;
-    background: var(--accent);
-    box-shadow: 0 0 0 4px color-mix(in oklab, var(--accent) 30%, transparent);
+  /* pastille plus grande */
+  content: "";
+  position: absolute;
+  left: -1.95rem;
+  top: 0.25rem;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 0 7px color-mix(in oklab, var(--accent) 28%, transparent);
 }
-
-.time {
-    font-weight: 800;
-    color: var(--muted);
-    margin-bottom: .15rem
+time {
+  display: block;
+  color: var(--muted);
+  font-weight: 800;
+  margin: 0 0 0.25rem;
+  font-size: 1rem;
 }
-
 h3 {
-    margin: .1rem 0 .25rem;
-    color: var(--text)
+  margin: 0.15rem 0 0.35rem;
+  font-size: clamp(1.05rem, 1vw, 1.25rem);
 }
-
 p {
-    margin: 0;
-    color: var(--muted)
+  margin: 0;
+  color: var(--muted);
+  font-size: 1rem;
+  line-height: 1.7;
 }
 
-@media (max-width:600px) {
-    .timeline {
-        padding-left: 1rem
-    }
-
-    .timeline li::before {
-        left: -1.35rem
-    }
+@media (max-width: 700px) {
+  .timeline {
+    padding-left: 1.6rem;
+  }
+  .timeline li::before {
+    left: -1.5rem;
+  }
 }
