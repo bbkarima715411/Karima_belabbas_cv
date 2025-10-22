@@ -400,4 +400,76 @@ document.addEventListener("DOMContentLoaded", () => {
     window.addEventListener('beforeunload', () => cancelAnimationFrame(rafId));
   });
 })();
+/* =========================================================
+   Progression par frise : remplit la barre .rail .progress
+   ========================================================= */
+(() => {
+  const groups = document.querySelectorAll('.timeline-group');
+  if (!groups.length) return;
+
+  const attach = (group) => {
+    const scroller = group.querySelector('.timeline-cards');
+    const bar = group.querySelector('.rail .progress');
+    if (!scroller || !bar) return;
+
+    const update = () => {
+      const max = scroller.scrollWidth - scroller.clientWidth;
+      const pct = max > 0 ? (scroller.scrollLeft / max) * 100 : 100;
+      bar.style.width = pct.toFixed(1) + '%';
+    };
+
+    update();
+    scroller.addEventListener('scroll', update, { passive: true });
+    window.addEventListener('resize', update, { passive: true });
+  };
+
+  groups.forEach(attach);
+})();
+
+/* =========================================================
+   TOOLTIP AUTO (Expériences/Formations)
+   - Génère le texte depuis <time> + <h3>
+   - Accessibilité : focusable + aria-label
+   - Mobile : tap pour afficher/masquer
+   ========================================================= */
+(() => {
+  const cards = document.querySelectorAll('.timeline-cards .card');
+  if (!cards.length) return;
+
+  // Construire le texte du tooltip automatiquement
+  cards.forEach(card => {
+    const time = card.querySelector('time')?.textContent?.trim() || '';
+    const title = card.querySelector('h3')?.textContent?.trim() || '';
+    const tip = [time, title].filter(Boolean).join(' — ');
+    card.setAttribute('data-tip', tip);
+    card.setAttribute('tabindex', '0');   // focus clavier possible
+    card.setAttribute('aria-label', tip);
+  });
+
+  // Gestion mobile/tap : toggle .show-tip à la carte cliquée
+  let openCard = null;
+  const closeOpen = () => {
+    if (openCard) { openCard.classList.remove('show-tip'); openCard = null; }
+  };
+
+  cards.forEach(card => {
+    card.addEventListener('click', (e) => {
+      // éviter que les clics sur liens à l’intérieur ne togglent la bulle
+      if (e.target.closest('a')) return;
+      if (openCard && openCard !== card) openCard.classList.remove('show-tip');
+      card.classList.toggle('show-tip');
+      openCard = card.classList.contains('show-tip') ? card : null;
+    });
+  });
+
+  // Fermer en cliquant ailleurs / échappe
+  document.addEventListener('click', (e) => {
+    if (!e.target.closest('.timeline-cards .card')) closeOpen();
+  });
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') closeOpen();
+  });
+})();
+
+
 

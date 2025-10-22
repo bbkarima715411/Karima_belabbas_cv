@@ -22,75 +22,73 @@
         </nav>
         <button class="theme-toggle">☀️ / 🌙</button>
     </header>
-
     <main class="wrap">
-        <h1 class="reveal" data-reveal>Parcours</h1>
+        <h1>Parcours</h1>
 
-        <!-- ===== Expériences (horizontal) ===== -->
-        <section class="htl-section reveal" data-reveal aria-labelledby="exp-title">
-            <h2 id="exp-title">Expériences</h2>
+        <!-- ===== EXPÉRIENCES ===== -->
+        <section aria-labelledby="exp-title" class="tl-section">
+            <h2 id="exp-title" class="section-title">Expériences</h2>
 
-            <div class="htl" data-color="accent">
-                <div class="htl-track" aria-hidden="true">
-                    <div class="htl-progress"></div>
-                    <span class="htl-pointer" aria-hidden="true"></span>
-                </div>
-
-                <ol class="htl-items" aria-label="Ligne du temps horizontale des expériences">
-                    <li>
+            <div class="timeline-group exp">
+                <div class="timeline-cards no-scrollbar">
+                    <article class="card">
                         <time>2025</time>
                         <h3>Stage Développeuse Web</h3>
-                        <p>Front / Full-stack · contribution, QA, bonnes pratiques.</p>
-                    </li>
-                    <li>
+                        <p>Front / Full-stack : contribution, QA, bonnes pratiques.</p>
+                    </article>
+
+                    <article class="card">
                         <time>Avant Dev</time>
                         <h3>Expériences antérieures</h3>
                         <p>Service client, coordination — soft skills transférables.</p>
-                    </li>
-                </ol>
+                    </article>
+                </div>
+                <div class="rail"><span class="progress"></span></div>
             </div>
         </section>
 
-        <!-- ===== Formations (horizontal) ===== -->
-        <section class="htl-section reveal" data-reveal aria-labelledby="edu-title">
-            <h2 id="edu-title">Formations</h2>
+        <!-- ===== FORMATIONS ===== -->
+        <section aria-labelledby="edu-title" class="tl-section">
+            <h2 id="edu-title" class="section-title">Formations</h2>
 
-            <div class="htl" data-color="accent-soft">
-                <div class="htl-track" aria-hidden="true">
-                    <div class="htl-progress"></div>
-                    <span class="htl-pointer" aria-hidden="true"></span>
-                </div>
-
-                <ol class="htl-items" aria-label="Ligne du temps horizontale des formations">
-                    <li>
+            <div class="timeline-group edu">
+                <div class="timeline-cards no-scrollbar">
+                    <article class="card">
                         <time>Avr–Juil 2025</time>
                         <h3>Interface3 — Web App Developer</h3>
-                        <p>HTML · CSS · JS · Python · Django · Git · projets équipe.</p>
-                    </li>
-                    <li>
+                        <p>HTML · CSS · JS · Python · Django · Git — projets équipe.</p>
+                    </article>
+
+                    <article class="card">
                         <time>Sept–Nov 2024</time>
                         <h3>Interface3 — Prête à coder</h3>
                         <p>Méthodo, bonnes pratiques, mini-projets.</p>
-                    </li>
-                    <li>
+                    </article>
+
+                    <article class="card">
                         <time>Juin–Juil 2024</time>
                         <h3>Interface3 — Orientation IT</h3>
-                        <p>Découverte des métiers · bases du web.</p>
-                    </li>
-                    <li>
+                        <p>Découverte des métiers, bases du web.</p>
+                    </article>
+
+                    <article class="card">
                         <time>Jan 2024</time>
                         <h3>BeCode — Bootcamp (5j)</h3>
-                        <p>Challenge intensif, esprit d’équipe.</p>
-                    </li>
-                    <li>
+                        <p>Challenge intensif, esprit d’équipe, résolution de problèmes.</p>
+                    </article>
+
+                    <article class="card">
                         <time>Depuis Sept 2024</time>
                         <h3>Cours d’anglais</h3>
-                        <p>Perfectionnement continu (oral/écrit) pro.</p>
-                    </li>
-                </ol>
+                        <p>Perfectionnement continu (oral/écrit) en contexte pro.</p>
+                    </article>
+                </div>
+                <div class="rail"><span class="progress"></span></div>
             </div>
         </section>
     </main>
+
+
 
     <script src="assets/app.js" defer></script>
 </body>

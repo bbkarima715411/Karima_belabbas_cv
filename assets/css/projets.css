@@ -1,84 +1,77 @@
 /* =========================================================
-   PROJETS.CSS — Grille, cartes, filtres (thème violet + style pro compact)
+   PROJETS.CSS — Grille compacte, cartes fixes (look pro)
    ========================================================= */
 
-/* ===== Filtres ===== */
+/* Filtres */
 .filters {
     display: flex;
     flex-wrap: wrap;
-    gap: 0.7rem;
-    margin-bottom: 1.8rem;
+    gap: .6rem;
+    margin-bottom: 1.2rem;
     justify-content: center;
 }
 
 .filters button {
     appearance: none;
     cursor: pointer;
-    padding: 0.45rem 0.9rem;
+    padding: .45rem .9rem;
     border-radius: 999px;
     font-weight: 700;
-    border: 1px solid color-mix(in oklab, var(--text) 20%, transparent);
+    font-size: .9rem;
+    border: 1px solid color-mix(in oklab, var(--text)20%, transparent);
     background: var(--bg);
     color: var(--text);
-    font-size: 0.9rem;
-    transition: all 0.25s ease;
+    transition: all .25s ease;
 }
 
 .filters button:hover {
     transform: translateY(-2px);
-    background: color-mix(in oklab, var(--accent) 10%, var(--bg));
-    box-shadow: 0 4px 10px rgba(160, 32, 240, 0.1);
+    background: color-mix(in oklab, var(--accent)10%, var(--bg));
+    box-shadow: 0 4px 10px rgba(160, 32, 240, .1);
 }
 
 .filters .is-active {
     background: var(--accent);
     color: var(--bg);
-    border-color: color-mix(in oklab, var(--accent) 50%, transparent);
-    box-shadow: 0 0 10px rgba(160, 32, 240, 0.25);
+    border-color: color-mix(in oklab, var(--accent)50%, transparent);
+    box-shadow: 0 0 10px rgba(160, 32, 240, .25);
 }
 
-/* ===== Grille ===== */
+/* ===== Grille FLEX (ne s’étire jamais) ===== */
 .grid {
-    display: grid;
-    gap: 1.2rem;
-    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
     justify-content: center;
-    align-items: stretch;
-    padding-bottom: 2rem;
+    align-content: flex-start;
+    /* option: limite la largeur de la zone projets pour un rendu “galerie” */
+    max-width: 1100px;
+    margin-inline: auto;
 }
 
-/* ===== Animation d’apparition ===== */
-.reveal {
-    opacity: 0;
-    transform: translateY(30px);
-    transition: opacity 0.8s ease, transform 0.8s ease;
-}
-
-.reveal.is-in {
-    opacity: 1;
-    transform: translateY(0);
-}
-
-/* ===== Carte projet ===== */
+/* ===== Carte projet COMPACTE ===== */
 .card {
-    background: color-mix(in oklab, var(--accent) 7%, var(--bg));
-    border: 1px solid color-mix(in oklab, var(--accent) 30%, transparent);
+    /* largeur fixe → ne s’étire pas quand il reste 1 seule carte */
+    flex: 0 1 240px;
+    /* base 240px, peut réduire un peu si manque de place */
+    max-width: 240px;
+    background: color-mix(in oklab, var(--accent)7%, var(--bg));
+    border: 1px solid color-mix(in oklab, var(--accent)30%, transparent);
     border-radius: 12px;
     overflow: hidden;
     display: flex;
     flex-direction: column;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.04);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, .04);
     transform: translateY(10px);
     opacity: 0;
-    animation: fadeUp 0.8s ease forwards;
-    animation-delay: calc(var(--i, 0) * 0.1s);
-    transition: all 0.3s ease;
+    animation: fadeUp .6s ease forwards;
+    transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease;
 }
 
 @keyframes fadeUp {
     from {
         opacity: 0;
-        transform: translateY(25px) scale(0.98);
+        transform: translateY(20px) scale(.98);
     }
 
     to {
@@ -88,128 +81,117 @@
 }
 
 .card:hover {
-    transform: translateY(-4px) scale(1.01);
+    transform: translateY(-4px);
     border-color: var(--accent);
-    box-shadow: 0 8px 20px rgba(160, 32, 240, 0.18);
+    box-shadow: 0 8px 18px rgba(160, 32, 240, .18);
 }
 
-/* ===== Image ===== */
+/* Image (compacte) */
 .card img {
     width: 100%;
-    aspect-ratio: 16/10;
+    height: 140px;
+    /* hauteur fixe → grid harmonieuse */
     object-fit: cover;
-    filter: grayscale(90%) brightness(0.9);
-    transition: all 0.4s ease;
+    filter: grayscale(85%) brightness(.92);
+    transition: filter .3s ease, transform .3s ease;
 }
 
 .card:hover img {
-    filter: grayscale(0%) brightness(1);
-    transform: scale(1.04);
+    filter: none;
+    transform: scale(1.03);
 }
 
-/* ===== Corps de la carte ===== */
+/* Corps */
 .card-body {
-    padding: 0.9rem 1rem 1rem;
+    padding: .8rem .9rem 1rem;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
-    flex-grow: 1;
+    gap: .45rem;
 }
 
 .card h3 {
-    margin: 0 0 0.3rem;
+    margin: 0;
     color: var(--accent);
-    font-size: 1rem;
-    font-weight: 700;
+    font-size: .98rem;
+    font-weight: 800;
+    letter-spacing: -.01em;
 }
 
 .desc {
     color: var(--muted);
-    margin-bottom: 0.7rem;
-    line-height: 1.5;
-    font-size: 0.85rem;
+    font-size: .82rem;
+    line-height: 1.45;
 }
 
-/* ===== Badges techno ===== */
+/* Badges */
 .badges {
     list-style: none;
     display: flex;
     flex-wrap: wrap;
-    gap: 0.35rem;
-    margin: 0 0 0.7rem;
+    gap: .35rem;
+    margin: .1rem 0 .35rem;
     padding: 0;
 }
 
 .badges li {
-    padding: 0.18rem 0.5rem;
+    padding: .16rem .45rem;
     border-radius: 999px;
-    background: color-mix(in oklab, var(--accent) 8%, var(--bg));
-    border: 1px solid color-mix(in oklab, var(--accent) 35%, transparent);
-    font-size: 0.72rem;
+    font-size: .72rem;
     font-weight: 600;
-    color: var(--text);
-    transition: all 0.25s ease;
+    background: color-mix(in oklab, var(--accent)8%, var(--bg));
+    border: 1px solid color-mix(in oklab, var(--accent)35%, transparent);
 }
 
 .badges li:hover {
     background: var(--accent);
     color: var(--bg);
-    box-shadow: 0 0 5px color-mix(in oklab, var(--accent) 60%, transparent);
 }
 
-/* ===== Impact + Liens ===== */
+/* Impact + liens */
 .impact {
-    margin: 0.3rem 0 0.6rem;
-    font-size: 0.78rem;
+    margin: .1rem 0 .25rem;
+    font-size: .76rem;
     color: var(--muted);
     font-style: italic;
 }
 
 .links {
     display: flex;
-    justify-content: flex-start;
-    gap: 0.8rem;
+    gap: .6rem;
 }
 
 .links a {
     color: var(--accent);
-    font-weight: 600;
-    font-size: 0.85rem;
+    font-weight: 700;
+    font-size: .82rem;
     text-decoration: none;
-    transition: opacity 0.2s ease, transform 0.2s ease;
+    transition: opacity .2s ease, transform .2s ease;
 }
 
 .links a:hover {
-    opacity: 0.75;
-    text-decoration: underline;
+    opacity: .8;
     transform: translateY(-2px);
+    text-decoration: underline;
+    text-underline-offset: 2px;
 }
 
-/* ===== État vide ===== */
+/* État vide */
 .empty {
     color: var(--muted);
-    margin-top: 2rem;
+    margin-top: 1.2rem;
     text-align: center;
     font-style: italic;
-    font-size: 0.9rem;
+    font-size: .9rem;
 }
 
-/* ===== Responsive ===== */
-@media (max-width: 768px) {
-    .grid {
-        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-        gap: 1rem;
-    }
-
+/* Responsive fin */
+@media (max-width: 420px) {
     .card {
-        border-radius: 10px;
+        flex-basis: 200px;
+        max-width: 200px;
     }
 
-    .card-body {
-        padding: 0.8rem 0.9rem 0.9rem;
-    }
-
-    .desc {
-        font-size: 0.82rem;
+    .card img {
+        height: 120px;
     }
 }
