@@ -229,10 +229,12 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function draw() {
-    ctx.fillStyle = "rgba(0,0,0,0.05)";
+    const isDark = document.body.classList.contains('dark');
+    ctx.fillStyle = isDark ? "rgba(0,0,0,0.08)" : "rgba(255,255,255,0.08)";
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-    ctx.fillStyle = "rgba(155, 0, 255, 0.8)";
+    // Couleur des caractères: bleu encore plus foncé en thème clair, violet en sombre
+    ctx.fillStyle = isDark ? "rgba(187, 134, 252, 0.85)" : "rgba(15, 30, 77, 0.95)"; // ~#0F1E4D
     ctx.font = fontSize + "px monospace";
 
     for (let i = 0; i < drops.length; i++) {

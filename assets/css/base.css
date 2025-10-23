@@ -272,8 +272,8 @@ h1 .morph.is-swap::after { width: 100%; }
 body:not(.dark) .home-hero {
     /* bleu plus foncé que --accent pour le canvas */
     --accent-hero: #1e3a8a;
-    /* fond bleu pastel pour l'accueil (clair) */
-    background: linear-gradient(135deg, #e3edff 0%, #d4e4ff 50%, #c4daff 100%);
+    /* fond bleu plus foncé (clair) */
+    background: linear-gradient(135deg, #d6e4ff 0%, #c3d4ff 50%, #a9c2ff 100%);
 }
 
 #profil::before,
