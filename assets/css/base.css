@@ -6,7 +6,7 @@
 :root {
     --bg: #ffffff;
     --text: #111111;
-    --accent: #9C27B0;
+    --accent: #2563eb;
     /* violet principal */
     --muted: #666666;
     --surface: #f4f4f8;
@@ -15,11 +15,16 @@
     --header-h: 72px;
 }
 
+/* --- Fond accueil (mode sombre): bleu-gris foncé, lisible avec texte clair --- */
+body.dark .home-hero {
+    background: linear-gradient(135deg, #0f172a 0%, #111827 50%, #1f2937 100%);
+}
+
 /* --- Mode sombre activé via body.dark --- */
 body.dark {
     --bg: #0f0f0f;
     --text: #f5f5f5;
-    --accent: #bb86fc;
+    --accent: #bb86fc; /* mode sombre reste violet */
     --muted: #aaaaaa;
     --surface: #1a1a1a;
 }
@@ -39,6 +44,10 @@ body {
     transition: background 0.3s ease, color 0.3s ease;
 }
 
+/* Défilement doux et offset d’ancre (header sticky) */
+html { scroll-behavior: smooth; }
+section { scroll-margin-top: var(--header-h); }
+
 a {
     color: var(--text);
     text-decoration: none;
@@ -46,6 +55,22 @@ a {
 
 a:hover {
     color: var(--accent);
+}
+
+/* Skip link (accessibilité) */
+.skip-link {
+    position: absolute;
+    left: -9999px;
+    top: 0;
+    background: var(--accent);
+    color: var(--bg);
+    padding: .5rem .8rem;
+    border-radius: 8px;
+    z-index: 1000;
+}
+.skip-link:focus {
+    left: 1rem;
+    top: 1rem;
 }
 
 /* --- En-tête / barre de navigation --- */
@@ -93,22 +118,36 @@ a:hover {
 .site-nav a:hover::after {
     width: 100%;
 }
+.site-nav a.is-active {
+    color: var(--accent);
+}
+.site-nav a.is-active::after {
+    width: 100%;
+}
 
 /* --- Bouton mode sombre / clair --- */
 .theme-toggle {
     cursor: pointer;
-    background: var(--accent);
-    color: var(--bg);
-    border: none;
-    border-radius: var(--radius);
-    padding: 0.4rem 0.8rem;
-    font-weight: 600;
-    transition: background 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: .5rem;
+    background: color-mix(in oklab, var(--accent) 12%, var(--bg));
+    color: var(--text);
+    border: 1px solid color-mix(in oklab, var(--accent) 30%, transparent);
+    border-radius: 999px;
+    padding: .35rem .6rem;
+    font-weight: 700;
+    transition: background .25s ease, border-color .25s ease, color .25s ease;
 }
 
 .theme-toggle:hover {
-    filter: brightness(1.2);
+    background: color-mix(in oklab, var(--accent) 16%, var(--bg));
 }
+
+.theme-toggle .icon { display: inline-flex; line-height: 0; opacity: .85; }
+.theme-toggle .icon.moon { display: none; }
+body.dark .theme-toggle .icon.sun { display: none; }
+body.dark .theme-toggle .icon.moon { display: inline-flex; }
 
 /* --- Animation d'apparition au scroll (commune à tout le site) --- */
 .reveal {
@@ -121,6 +160,48 @@ a:hover {
     opacity: 1;
     transform: translateY(0);
 }
+
+/* Titres accroche (morphing de mots) */
+.morph {
+    display: inline-block;
+    transition: opacity .6s ease, filter .6s ease, transform .25s ease;
+    /* Gradient text according to theme */
+    background: linear-gradient(90deg, color-mix(in oklab, var(--accent) 85%, #ffffff), var(--text));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    position: relative;
+}
+.morph.is-out {
+    opacity: 0;
+    filter: blur(4px);
+}
+/* Dark mode gradient tweak */
+body.dark .morph {
+    /* Violet gradient text in dark mode with good legibility */
+    background: linear-gradient(
+        90deg,
+        color-mix(in oklab, var(--accent) 90%, #ffffff),
+        color-mix(in oklab, var(--accent) 60%, #ffffff)
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, .35);
+}
+
+/* Animated underline triggered on swap */
+h1 .morph::after {
+    content: "";
+    position: absolute;
+    left: 0; bottom: -4px;
+    height: 2px; width: 0;
+    background: var(--accent);
+    transition: width .35s ease;
+}
+h1 .morph.is-swap { transform: scale(1.02); }
+h1 .morph.is-swap::after { width: 100%; }
 
 /* --- Boutons généraux --- */
 .btn {
@@ -136,4 +217,86 @@ a:hover {
 .btn:hover {
     transform: translateY(-2px);
     filter: brightness(1.1);
+}
+
+.btn-outline {
+    background: transparent;
+    color: var(--accent);
+    border: 1px solid color-mix(in oklab, var(--accent) 55%, transparent);
+}
+.btn-outline:hover {
+    background: color-mix(in oklab, var(--accent) 10%, var(--bg));
+}
+
+/* Variantes de fond par section (pleine largeur) */
+#profil, #competences, #experiences, #projets, #contact {
+    position: relative;
+    padding: 2.5rem 0;
+}
+
+/* Accent spécifique au héros (fond canvas) uniquement en mode clair */
+body:not(.dark) .home-hero {
+    /* bleu plus foncé que --accent pour le canvas */
+    --accent-hero: #1e3a8a;
+    /* fond bleu pastel pour l'accueil (clair) */
+    background: linear-gradient(135deg, #e3edff 0%, #d4e4ff 50%, #c4daff 100%);
+}
+
+#profil::before,
+#competences::before,
+#experiences::before,
+#projets::before,
+#contact::before{
+    content:"";
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100vw;
+    height: 100%;
+    z-index: -1;
+}
+
+/* Dégradé noir → gris → violet, adouci par var(--bg) pour clair/sombre */
+#profil::before,
+#competences::before,
+#experiences::before,
+#projets::before,
+#contact::before{
+    background: linear-gradient(
+        135deg,
+        color-mix(in oklab, #000 20%, var(--bg)) 0%,
+        color-mix(in oklab, #555 20%, var(--bg)) 50%,
+        color-mix(in oklab, var(--accent) 28%, var(--bg)) 100%
+    );
+    background-size: 200% 200%;
+}
+
+/* Animation douce du dégradé, activée seulement quand la section est visible */
+@keyframes gradientShift {
+    0%   { background-position: 0% 50%; }
+    100% { background-position: 100% 50%; }
+}
+
+#profil.bg-anim-on::before,
+#competences.bg-anim-on::before,
+#experiences.bg-anim-on::before,
+#projets.bg-anim-on::before,
+#contact.bg-anim-on::before{
+    animation: gradientShift 12s ease-in-out infinite alternate;
+}
+
+/* --- Variante mode clair: dégradé bleu (mode sombre reste violet) --- */
+body:not(.dark) #profil::before,
+body:not(.dark) #competences::before,
+body:not(.dark) #experiences::before,
+body:not(.dark) #projets::before,
+body:not(.dark) #contact::before {
+    background: linear-gradient(
+        135deg,
+        color-mix(in oklab, #1e3a8a 18%, var(--bg)) 0%,   /* bleu sombre */
+        color-mix(in oklab, #3b82f6 22%, var(--bg)) 50%,  /* bleu moyen */
+        color-mix(in oklab, #bfdbfe 16%, var(--bg)) 100%  /* bleu très clair */
+    );
+    background-size: 200% 200%;
 }

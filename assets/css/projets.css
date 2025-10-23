@@ -27,14 +27,14 @@
 .filters button:hover {
     transform: translateY(-2px);
     background: color-mix(in oklab, var(--accent)10%, var(--bg));
-    box-shadow: 0 4px 10px rgba(160, 32, 240, .1);
+    box-shadow: 0 4px 10px color-mix(in oklab, var(--accent) 30%, transparent);
 }
 
 .filters .is-active {
     background: var(--accent);
     color: var(--bg);
     border-color: color-mix(in oklab, var(--accent)50%, transparent);
-    box-shadow: 0 0 10px rgba(160, 32, 240, .25);
+    box-shadow: 0 0 10px color-mix(in oklab, var(--accent) 55%, transparent);
 }
 
 /* ===== Grille FLEX (ne s’étire jamais) ===== */
@@ -61,7 +61,7 @@
     overflow: hidden;
     display: flex;
     flex-direction: column;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, .04);
+    box-shadow: 0 4px 10px color-mix(in oklab, var(--accent) 20%, transparent);
     transform: translateY(10px);
     opacity: 0;
     animation: fadeUp .6s ease forwards;
@@ -83,7 +83,7 @@
 .card:hover {
     transform: translateY(-4px);
     border-color: var(--accent);
-    box-shadow: 0 8px 18px rgba(160, 32, 240, .18);
+    box-shadow: 0 8px 18px color-mix(in oklab, var(--accent) 40%, transparent);
 }
 
 /* Image (compacte) */

@@ -17,7 +17,7 @@
   object-fit: cover;
   border-radius: 50%;
   border: 5px solid color-mix(in oklab, var(--accent) 40%, transparent);
-  box-shadow: 0 16px 40px rgba(156, 39, 176, 0.2);
+  box-shadow: 0 16px 40px color-mix(in oklab, var(--accent) 35%, transparent);
 }
 .about h1 {
   color: var(--accent);

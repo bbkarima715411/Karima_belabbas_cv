@@ -4,19 +4,29 @@
 
 /* ===== MODE SOMBRE / CLAIR ===== */
 const toggle = document.querySelector(".theme-toggle");
+function applyAriaThemeState(btn) {
+  if (!btn) return;
+  const isDark = document.body.classList.contains("dark");
+  btn.setAttribute("aria-checked", isDark ? "true" : "false");
+  btn.setAttribute(
+    "aria-label",
+    isDark ? "Basculer en mode clair" : "Basculer en mode sombre"
+  );
+}
+
+// Appliquer le thème enregistré au chargement
+if (localStorage.getItem("theme") === "dark") {
+  document.body.classList.add("dark");
+}
+applyAriaThemeState(toggle);
+
 if (toggle) {
   toggle.addEventListener("click", () => {
     document.body.classList.toggle("dark");
-    localStorage.setItem(
-      "theme",
-      document.body.classList.contains("dark") ? "dark" : "light"
-    );
+    const mode = document.body.classList.contains("dark") ? "dark" : "light";
+    localStorage.setItem("theme", mode);
+    applyAriaThemeState(toggle);
   });
-}
-
-// Appliquer le thème enregistré
-if (localStorage.getItem("theme") === "dark") {
-  document.body.classList.add("dark");
 }
 
 /* Révèle les éléments marqués data-reveal au chargement */
@@ -54,57 +64,149 @@ document.addEventListener("DOMContentLoaded", () => {
 })();
 
 /* =========================================================
-    FOND ANIMÉ : "code qui défile" (canvas)
+    Titres accroche (morphing de mots)
+   ========================================================= */
+(() => {
+  const items = Array.from(document.querySelectorAll('h1 .morph'));
+  if (!items.length) return;
+
+  const reduce = window.matchMedia?.('(prefers-reduced-motion: reduce)')?.matches;
+  const INTERVAL = 3200;
+
+  function setup(el) {
+    const list = (el.getAttribute('data-words') || '').split('|').map(s => s.trim()).filter(Boolean);
+    if (list.length <= 1) return null;
+    let i = 0, timer = null;
+
+    function next() {
+      el.classList.add('is-out');
+      el.classList.add('is-swap');
+      const word = list[(i + 1) % list.length];
+      setTimeout(() => {
+        el.textContent = word;
+        el.classList.remove('is-out');
+        // retire l'effet underline/scale après un court délai
+        setTimeout(() => el.classList.remove('is-swap'), 300);
+        i = (i + 1) % list.length;
+      }, 400);
+    }
+
+    function start() {
+      if (timer || reduce) return;
+      timer = setInterval(next, INTERVAL);
+    }
+    function stop() {
+      if (timer) { clearInterval(timer); timer = null; }
+    }
+    return { start, stop };
+  }
+
+  const controllers = new Map();
+  items.forEach(el => {
+    const c = setup(el);
+    if (c) controllers.set(el, c);
+  });
+  if (!controllers.size) return;
+
+  if (!('IntersectionObserver' in window)) {
+    // fallback: démarrer tout si pas d'observer
+    controllers.forEach(c => c.start());
+    return;
+  }
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      const ctrl = controllers.get(e.target);
+      if (!ctrl) return;
+      if (e.isIntersecting) ctrl.start(); else ctrl.stop();
+    });
+  }, { threshold: 0.3 });
+
+  controllers.forEach((_, el) => io.observe(el));
+})();
+
+/* =========================================================
+    Scrollspy: lien de navigation actif selon la section visible
+   ========================================================= */
+(() => {
+  const nav = document.querySelector('.site-nav');
+  if (!nav || !('IntersectionObserver' in window)) return;
+
+  const links = Array.from(nav.querySelectorAll('a[href^="#"]'));
+  if (!links.length) return;
+
+  const byId = new Map();
+  links.forEach(a => {
+    const id = a.getAttribute('href').slice(1);
+    const sec = document.getElementById(id);
+    if (sec) byId.set(id, { link: a, sec });
+  });
+  if (!byId.size) return;
+
+  function setActive(id) {
+    links.forEach(l => l.classList.remove('is-active'));
+    const entry = byId.get(id);
+    if (entry) entry.link.classList.add('is-active');
+  }
+
+  const observer = new IntersectionObserver((entries) => {
+    // choisir la section la plus visible
+    let best = null; let bestRatio = 0;
+    entries.forEach(e => {
+      if (e.isIntersecting && e.intersectionRatio > bestRatio) {
+        best = e; bestRatio = e.intersectionRatio;
+      }
+    });
+    if (best) setActive(best.target.id);
+  }, { rootMargin: '-20% 0px -60% 0px', threshold: [0.2, 0.5, 0.8] });
+
+  byId.forEach(({ sec }) => observer.observe(sec));
+
+  // état initial: activer #accueil si présent
+  if (document.getElementById('accueil')) setActive('accueil');
+})();
+
+/* =========================================================
+   FOND ANIMÉ : code qui tombe (canvas)
    ========================================================= */
 (() => {
   const canvas = document.getElementById("codebg");
   if (!canvas) return;
 
-  // Respect des préférences utilisateur
-  const reduce = window.matchMedia?.(
-    "(prefers-reduced-motion: reduce)"
-  )?.matches;
+  const reduce = window.matchMedia?.('(prefers-reduced-motion: reduce)')?.matches;
   if (reduce) return;
 
   const ctx = canvas.getContext("2d");
-  const accent =
-    getComputedStyle(document.documentElement)
-      .getPropertyValue("--accent")
-      .trim() || "#9C27B0";
-  const CHARS = "01<>/{}[]();=:+-*".split("");
-  let w, h, cols, fontSize, drops;
 
-  function resize() {
-    w = canvas.width = window.innerWidth;
-    h = canvas.height = window.innerHeight;
-    fontSize = Math.max(14, Math.floor(w / 80));
-    cols = Math.floor(w / fontSize);
-    drops = new Array(cols).fill(0);
-    ctx.font = `${fontSize}px ui-monospace, SFMono-Regular, Menlo, Consolas, monospace`;
+  const letters = "01<>/{}[]#=+-_&$@"; // caractères affichés
+  const fontSize = 14;
+  let columns = 0;
+  let drops = [];
+
+  function size() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    columns = Math.floor(canvas.width / fontSize);
+    drops = Array(columns).fill(1);
   }
 
-  function step() {
-    const isDark = document.body.classList.contains("dark");
-    ctx.fillStyle = isDark ? "rgba(0,0,0,0.08)" : "rgba(255,255,255,0.08)";
-    ctx.fillRect(0, 0, w, h);
+  function draw() {
+    ctx.fillStyle = "rgba(0,0,0,0.05)";
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-    ctx.fillStyle = accent;
-    ctx.textBaseline = "top";
+    ctx.fillStyle = "rgba(155, 0, 255, 0.8)";
+    ctx.font = fontSize + "px monospace";
 
-    for (let i = 0; i < cols; i++) {
-      const char = CHARS[Math.floor(Math.random() * CHARS.length)];
-      const x = i * fontSize;
-      const y = drops[i] * fontSize;
-      ctx.fillText(char, x, y);
-      if (y > h && Math.random() > 0.975) drops[i] = 0;
-      else drops[i]++;
+    for (let i = 0; i < drops.length; i++) {
+      const text = letters[Math.floor(Math.random() * letters.length)];
+      ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+      if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) drops[i] = 0;
+      drops[i]++;
     }
-    requestAnimationFrame(step);
   }
 
-  resize();
-  window.addEventListener("resize", resize, { passive: true });
-  requestAnimationFrame(step);
+  size();
+  window.addEventListener('resize', size, { passive: true });
+  setInterval(draw, 33); // 33ms ≈ 30fps
 })();
 
 /* =========================================================
@@ -119,6 +221,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function applyFilter(tag) {
     let visible = 0;
+    const wanted = tag.split(/\s+/).filter(Boolean);
     // boutons (état visuel + ARIA)
     buttons.forEach((b) => {
       const isActive = b.dataset.t === tag;
@@ -127,8 +230,8 @@ document.addEventListener("DOMContentLoaded", () => {
     });
     // cartes
     cards.forEach((card) => {
-      const tags = (card.dataset.t || "").split(/\s+/);
-      const show = tag === "all" || tags.includes(tag);
+      const tags = (card.dataset.t || "").split(/\s+/).filter(Boolean);
+      const show = tag === "all" || wanted.some((t) => tags.includes(t));
       card.style.display = show ? "" : "none";
       if (show) visible++;
     });
@@ -201,7 +304,7 @@ document.addEventListener("DOMContentLoaded", () => {
 })();
 
 /* =========================================================
-   Timelines multiples : progression + “regard” (tracker)
+    Timelines multiples : progression + “regard” (tracker)
    ========================================================= */
 (() => {
   const wrappers = document.querySelectorAll(".tl-wrap");
@@ -251,7 +354,7 @@ document.addEventListener("DOMContentLoaded", () => {
   window.addEventListener("resize", updateAll, { passive: true });
 })();
 /* =========================================================
-   Timelines HORIZONTALES : auto-position + "barre de rechargement"
+    Timelines HORIZONTALES : auto-position + "barre de rechargement"
    ========================================================= */
 (() => {
   const timelines = document.querySelectorAll(".htl");
@@ -344,10 +447,10 @@ document.addEventListener("DOMContentLoaded", () => {
 })();
 
 /* =========================================================
-   Auto-scroll horizontal "lecture guidée" (timeline-cards)
-   - Pause à l’interaction, reprise après 2s d’inactivité
-   - Ping-pong (gauche ⇄ droite) continu
-   - Respecte prefers-reduced-motion
+    Auto-scroll horizontal "lecture guidée" (timeline-cards)
+    - Pause à l’interaction, reprise après 2s d’inactivité
+    - Ping-pong (gauche ⇄ droite) continu
+    - Respecte prefers-reduced-motion
    ========================================================= */
 (() => {
   const containers = document.querySelectorAll('.timeline-cards');
@@ -401,7 +504,7 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 })();
 /* =========================================================
-   Progression par frise : remplit la barre .rail .progress
+    Progression par frise : remplit la barre .rail .progress
    ========================================================= */
 (() => {
   const groups = document.querySelectorAll('.timeline-group');
@@ -427,10 +530,10 @@ document.addEventListener("DOMContentLoaded", () => {
 })();
 
 /* =========================================================
-   TOOLTIP AUTO (Expériences/Formations)
-   - Génère le texte depuis <time> + <h3>
-   - Accessibilité : focusable + aria-label
-   - Mobile : tap pour afficher/masquer
+    TOOLTIP AUTO (Expériences/Formations)
+    - Génère le texte depuis <time> + <h3>
+    - Accessibilité : focusable + aria-label
+    - Mobile : tap pour afficher/masquer
    ========================================================= */
 (() => {
   const cards = document.querySelectorAll('.timeline-cards .card');
@@ -472,4 +575,30 @@ document.addEventListener("DOMContentLoaded", () => {
 })();
 
 
+
+/* =========================================================
+    Animation de dégradé par section (fond) quand visible
+    - Ajoute .bg-anim-on aux sections visibles (sauf #accueil)
+    - Respecte prefers-reduced-motion
+   ========================================================= */
+(() => {
+  const sections = ['#profil', '#competences', '#experiences', '#projets', '#contact']
+    .map((sel) => document.querySelector(sel))
+    .filter(Boolean);
+  if (!sections.length) return;
+
+  const reduce = window.matchMedia?.('(prefers-reduced-motion: reduce)')?.matches;
+  if (reduce || !('IntersectionObserver' in window)) return;
+
+  const io = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((e) => {
+        e.target.classList.toggle('bg-anim-on', e.isIntersecting);
+      });
+    },
+    { threshold: 0.25 }
+  );
+
+  sections.forEach((s) => io.observe(s));
+})();
 

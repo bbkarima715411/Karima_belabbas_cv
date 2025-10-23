@@ -89,6 +89,48 @@ body.dark .home-hero.intro-done .codebg {
     opacity: 0;
 }
 
+/* Icônes sociales sous le titre */
+.social-links {
+    display: flex;
+    gap: 0.9rem;
+    margin-top: 1rem;
+    align-items: center;
+    justify-content: center;
+}
+
+.social-links a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 999px;
+    color: var(--accent);
+    background: color-mix(in oklab, var(--accent) 10%, var(--bg));
+    border: 1px solid color-mix(in oklab, var(--accent) 35%, transparent);
+    transition: transform .2s ease, filter .2s ease, background .2s ease;
+}
+
+.social-links a:hover {
+    transform: translateY(-3px);
+    filter: brightness(1.05);
+}
+
+.social-links a:focus-visible {
+    outline: 3px solid color-mix(in oklab, var(--accent) 35%, transparent);
+    outline-offset: 2px;
+}
+
+/* Espace avant le bouton CV */
+.hero-actions {
+    margin-top: 2rem;
+    text-align: center;
+}
+
+@media (min-width: 768px) {
+    .hero-actions { margin-top: 2.6rem; }
+}
+
 @keyframes fadeInTitle {
     to {
         opacity: 1;
