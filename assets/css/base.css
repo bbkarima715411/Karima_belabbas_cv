@@ -15,6 +15,39 @@
     --header-h: 72px;
 }
 
+/* --- Lien K (dans le nom) --- */
+.hero-k{
+    color: var(--accent);
+    text-decoration: none;
+    border-bottom: 2px solid color-mix(in oklab, var(--accent) 50%, transparent);
+    margin-right: 1px;
+}
+.hero-k:hover{ filter: brightness(1.1); border-bottom-color: var(--accent); }
+.hero-k:focus-visible{ outline: 3px solid color-mix(in oklab, var(--accent) 45%, transparent); outline-offset: 2px; border-bottom-color: transparent; }
+
+/* --- Bouton flottant K. --- */
+.k-fab{
+    position: fixed;
+    right: 18px;
+    bottom: 18px;
+    width: 56px; height: 56px;
+    border-radius: 999px;
+    background: var(--accent);
+    color: var(--bg);
+    border: 0;
+    font-weight: 900;
+    font-size: 1.1rem;
+    box-shadow: 0 10px 26px color-mix(in oklab, var(--accent) 45%, transparent);
+    cursor: pointer;
+    transition: transform .2s ease, box-shadow .2s ease, opacity .2s ease, filter .2s ease;
+    z-index: 60;
+    opacity: 0; pointer-events: none;
+}
+.k-fab.show{ opacity: 1; pointer-events: auto; }
+.k-fab:hover{ transform: translateY(-3px); filter: brightness(1.05); }
+.k-fab:focus-visible{ outline: 3px solid color-mix(in oklab, var(--accent) 45%, transparent); outline-offset: 3px; }
+.k-fab.is-up::after{ content: "↑"; position: absolute; right: -4px; top: -6px; font-size: .9rem; }
+
 /* --- Fond accueil (mode sombre): bleu-gris foncé, lisible avec texte clair --- */
 body.dark .home-hero {
     background: linear-gradient(135deg, #0f172a 0%, #111827 50%, #1f2937 100%);
@@ -92,6 +125,7 @@ a:hover {
     font-size: 1.5rem;
     color: var(--accent);
 }
+.brand:hover { text-decoration: underline; text-underline-offset: 4px; }
 
 .site-nav {
     display: flex;

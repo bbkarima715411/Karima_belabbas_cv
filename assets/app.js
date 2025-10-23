@@ -64,6 +64,45 @@ document.addEventListener("DOMContentLoaded", () => {
 })();
 
 /* =========================================================
+    Bouton flottant K. — Haut / Contact
+   ========================================================= */
+(() => {
+  const btn = document.querySelector('.k-fab');
+  if (!btn) return;
+
+  const reduce = window.matchMedia?.('(prefers-reduced-motion: reduce)')?.matches;
+  const showAt = 240; // px
+
+  function onScroll() {
+    const y = window.scrollY || document.documentElement.scrollTop;
+    if (y > showAt) btn.classList.add('show', 'is-up');
+    else btn.classList.remove('is-up');
+    if (y > showAt / 2) btn.classList.add('show'); else btn.classList.remove('show');
+  }
+
+  btn.addEventListener('click', () => {
+    const y = window.scrollY || document.documentElement.scrollTop;
+    if (y > showAt) {
+      window.scrollTo({ top: 0, behavior: reduce ? 'auto' : 'smooth' });
+    } else {
+      document.querySelector('#contact')?.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth' });
+    }
+  });
+
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+})();
+
+/* =========================================================
+    Marque K. (header) — tooltip accessible
+   ========================================================= */
+(() => {
+  const brand = document.querySelector('.brand');
+  if (!brand) return;
+  brand.setAttribute('title', 'Revenir en haut');
+})();
+
+/* =========================================================
     Titres accroche (morphing de mots)
    ========================================================= */
 (() => {
