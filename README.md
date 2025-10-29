@@ -1,6 +1,25 @@
 Cahier des charges – Mon CV en ligne
 
 
+## Derniers changements
+
+- **[Timeline verticale]** Remplacement des frises horizontales par une timeline verticale en 2 colonnes (`Expériences` | `Formations`) avec ligne/pastille alignées. Fichiers: `index.html`, `assets/css/experiences.css`.
+- **[Titres renforcés]** `h1`, `.section-title`, `.vtl-title` plus grands et soulignement plus visible. Fichier: `assets/css/experiences.css`.
+- **[Accueil bleu + animation]** Fond d’accueil bleu plus foncé en mode clair, bleu‑gris en sombre. Animation "code qui tombe" en bleu foncé (clair) et violet (sombre). Fichiers: `assets/css/base.css`, `assets/css/index.css`, `assets/app.js`.
+- **[K. cliquable]**
+  - Logo `K.` (header) → lien `#accueil` + tooltip.
+  - Lettre `K` du nom → lien de téléchargement du CV PDF.
+  - Bouton flottant `K.` (bas‑droite) → remonter en haut (si scroll) sinon aller à `#contact`. Fichiers: `index.html`, `assets/css/base.css`, `assets/app.js`.
+- **[Cartes Projets]**
+  - Suppression des liens "Démo" pour plus de clarté; GitHub uniquement.
+  - Alignement visuel des titres/descriptions et liens calés en bas. Fichier: `assets/css/projets.css`.
+  - Liens GitHub mis à jour:
+    - Jeu JS: `https://github.com/bbkarima715411/Jeu_F-e_Js.git`
+    - E‑commerce: `https://github.com/bbkarima715411/E_commerce_bougie.git`
+    - Taxi (Django): `https://github.com/bbkarima715411/Projet_Taxi_Bxl.git`
+    - Enchères (Symfony): `https://github.com/bbkarima715411/ProjetFinal-Karima.git`
+
+Date: Oct 2025
 
 1. Contexte et objectif
 Je souhaite créer mon CV en ligne en utilisant uniquement HTML, CSS et JavaScript.
