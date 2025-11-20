@@ -1,49 +1,61 @@
 /* PROFIL – avatar centré et large, texte au centre */
 .wrap {
-  max-width: 1000px;
-  margin: 0 auto;
+    max-width: 1000px;
+    margin: 0 auto;
 }
 
 .about {
-  display: grid;
-  grid-template-columns: 1fr;
-  justify-items: center;
-  text-align: center;
-  gap: 1.2rem;
+    display: grid;
+    grid-template-columns: 1fr;
+    justify-items: center;
+    text-align: center;
+    gap: 1.2rem;
+    margin-top: 1.5rem;
 }
+
 .avatar {
-  width: clamp(200px, 28vw, 260px);
-  aspect-ratio: 1/1;
-  object-fit: cover;
-  border-radius: 50%;
-  border: 5px solid color-mix(in oklab, var(--accent) 40%, transparent);
-  box-shadow: 0 16px 40px color-mix(in oklab, var(--accent) 35%, transparent);
+    width: clamp(200px, 28vw, 260px);
+    aspect-ratio: 1/1;
+    object-fit: cover;
+    object-position: top center;
+    border-radius: 50%;
+    border: 5px solid color-mix(in oklab, var(--accent) 40%, transparent);
+    box-shadow: 0 16px 40px color-mix(in oklab, var(--accent) 35%, transparent);
 }
+
 .about h1 {
-  color: var(--accent);
-  margin: 0.2rem 0 0.6rem;
-  font-size: clamp(1.6rem, 2vw, 2rem);
+    color: var(--accent);
+    margin: 0.2rem 0 0.6rem;
+    font-size: clamp(1.6rem, 2vw, 2rem);
 }
+
 .about p {
-  color: var(--muted);
-  max-width: 70ch;
-  line-height: 1.8;
-  margin: 0 auto;
+    color: var(--muted);
+    max-width: 70ch;
+    line-height: 1.8;
+    margin: 0 auto;
 }
 
 .facts {
-  margin: 0.9rem 0 0;
-  padding: 0;
-  list-style: none;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-  justify-content: center;
+    margin: 0.9rem 0 0;
+    padding: 0;
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    justify-content: center;
 }
+
 .facts li {
-  padding: 0.35rem 0.7rem;
-  border-radius: 999px;
-  background: color-mix(in oklab, var(--accent) 10%, var(--bg));
-  border: 1px solid color-mix(in oklab, var(--accent) 35%, transparent);
-  font-weight: 600;
+    padding: 0.35rem 0.7rem;
+    border-radius: 999px;
+    background: color-mix(in oklab, var(--accent) 10%, var(--bg));
+    border: 1px solid color-mix(in oklab, var(--accent) 35%, transparent);
+    font-weight: 600;
+}
+
+@media (max-width: 576px) {
+    .about {
+        margin-top: 1.1rem;
+    }
 }

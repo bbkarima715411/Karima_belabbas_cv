@@ -1,67 +1,272 @@
-/* COMPÉTENCES — barres animées + grille deux colonnes */
-/* L'ancien layout .twocol n'est plus nécessaire pour séparer techniques/transversales */
+/* =========================================================
+   COMPÉTENCES — 4 cartes + transversales
+   - Titre à gauche, ligne verticale, liste à droite
+   - Dégradés plus visibles (clair & sombre)
+   ========================================================= */
 
-.skills {
-  display: grid;
-  gap: 1rem 1.25rem;
-  margin-top: 0.5rem;
+/* Grille des 4 cartes de compétences */
+.skills-grid {
+    display: grid;
+    gap: 1.5rem 2rem;
+    margin-top: 0.75rem;
+    grid-template-columns: minmax(0, 1fr);
+    /* 1 colonne mobile */
 }
 
-/* Deux colonnes sur écrans moyens/large pour occuper l'espace */
-@media (min-width: 900px) {
-  .skills {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
+/* 2 colonnes sur écrans moyens/large */
+@media (min-width: 768px) {
+    .skills-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
 }
 
-.skill {
-  display: grid;
-  grid-template-columns: 140px 1fr;
-  gap: 1rem;
-  align-items: center;
+/* ===== Carte générale ===== */
+.skills-group {
+    position: relative;
+    display: grid;
+    grid-template-columns: auto 1fr;
+    /* titre à gauche, liste à droite */
+    column-gap: 1.4rem;
+    align-items: flex-start;
+    padding: 1.2rem 1.4rem 1.1rem;
+    border-radius: var(--radius);
+    border: 1px solid color-mix(in oklab, var(--accent) 22%, transparent);
+    overflow: hidden;
+    text-align: left;
+    transition:
+        transform 0.18s ease,
+        box-shadow 0.18s ease,
+        border-color 0.18s ease,
+        background 0.25s ease;
 }
 
-.skill span {
-  font-weight: 700;
+/* Dégradé plus marqué en mode clair */
+body:not(.dark) .skills-group {
+    background: linear-gradient(135deg,
+            #f3e8ff 0%,
+            /* violet très clair */
+            #e5d9ff 40%,
+            /* violet plus présent */
+            #e0e7ff 100%
+            /* bleu-violet doux */
+        );
+    box-shadow: 0 18px 40px rgba(15, 23, 42, 0.25);
 }
 
-.skill-bar {
-  height: 10px;
-  background: var(--surface);
-  border-radius: 999px;
-  overflow: hidden;
-  border: 1px solid color-mix(in oklab, var(--text) 15%, transparent);
+/* Dégradé sombre/violet en dark mode */
+body.dark .skills-group {
+    background: linear-gradient(135deg,
+            color-mix(in oklab, #111827 70%, var(--bg)) 0%,
+            color-mix(in oklab, var(--accent) 35%, #020617) 45%,
+            color-mix(in oklab, var(--accent) 20%, #000000) 100%);
+    box-shadow: 0 16px 34px rgba(0, 0, 0, 0.4);
 }
 
-.skill-bar-fill {
-  display: block;
-  width: 0%;
-  height: 100%;
-  background: var(--accent);
-  transition: width 1s ease;
+/* Pas d’effet hover dynamique sur les cartes (UX sobre) */
+.skills-group:hover {
+    transform: none;
+    box-shadow: inherit;
+    border-color: inherit;
 }
 
-/* quand la ligne .skill reçoit .is-in, on remplit jusqu'à --value */
-.skill.is-in .skill-bar-fill {
-  width: var(--value, 70%);
+/* ===== Titre de catégorie (colonne gauche) ===== */
+.skills-group h3 {
+    grid-column: 1;
+    grid-row: 1;
+    font-size: 1.25rem;
+    margin: 0 0 0.3rem;
+    color: var(--accent);
+    display: inline-flex;
+    align-items: center;
+    gap: 0.55rem;
 }
 
-.soft {
-  margin: 0.4rem 0 0;
-  padding-left: 1rem;
+/* Icône ronde devant le titre */
+.skills-group h3::before {
+    content: "";
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+    border-radius: 999px;
+    font-size: 0.9rem;
+    font-weight: 700;
+    background: var(--accent);
+    color: var(--bg);
 }
 
-.soft li {
-  margin: 0.35rem 0;
+/* Icônes par catégorie */
+.skills-group--frontend h3::before {
+    content: "</>";
 }
 
-/* Bloc transversales centré sous les techniques */
+.skills-group--backend h3::before {
+    content: "{}";
+}
+
+.skills-group--db h3::before {
+    content: "DB";
+}
+
+.skills-group--tools h3::before {
+    content: "★";
+}
+
+/* ===== Liste (colonne droite) + ligne verticale ===== */
+.skills-group ul {
+    grid-column: 2;
+    grid-row: 1;
+    list-style: none;
+    margin: 0.2rem 0 0;
+    padding-left: 1.2rem;
+    /* décollé de la ligne */
+    border-left: 2px solid color-mix(in oklab, var(--accent) 75%, transparent);
+}
+
+.skills-group li {
+    position: relative;
+    margin: 0.18rem 0;
+    opacity: 0;
+    transform: translateY(6px);
+}
+
+/* Petit point avant chaque compétence */
+.skills-group li::before {
+    content: "•";
+    position: absolute;
+    left: -0.9rem;
+    color: var(--accent);
+}
+
+/* Animation d'apparition progressive quand le bloc est révélé */
+.reveal.is-in .skills-group li {
+    animation: skillItemIn 0.4s ease forwards;
+}
+
+.reveal.is-in .skills-group li:nth-child(1) {
+    animation-delay: 0.03s;
+}
+
+.reveal.is-in .skills-group li:nth-child(2) {
+    animation-delay: 0.08s;
+}
+
+.reveal.is-in .skills-group li:nth-child(3) {
+    animation-delay: 0.13s;
+}
+
+.reveal.is-in .skills-group li:nth-child(4) {
+    animation-delay: 0.18s;
+}
+
+.reveal.is-in .skills-group li:nth-child(5) {
+    animation-delay: 0.23s;
+}
+
+.reveal.is-in .skills-group li:nth-child(6) {
+    animation-delay: 0.28s;
+}
+
+.reveal.is-in .skills-group li:nth-child(7) {
+    animation-delay: 0.33s;
+}
+
+.reveal.is-in .skills-group li:nth-child(8) {
+    animation-delay: 0.38s;
+}
+
+.reveal.is-in .skills-group li:nth-child(9) {
+    animation-delay: 0.43s;
+}
+
+.reveal.is-in .skills-group li:nth-child(10) {
+    animation-delay: 0.48s;
+}
+
+.reveal.is-in .skills-group li:nth-child(11) {
+    animation-delay: 0.53s;
+}
+
+.reveal.is-in .skills-group li:nth-child(12) {
+    animation-delay: 0.58s;
+}
+
+@keyframes skillItemIn {
+    from {
+        opacity: 0;
+        transform: translateY(6px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ===== Responsive : en mobile on revient à une structure plus simple ===== */
+@media (max-width: 640px) {
+    .skills-group {
+        grid-template-columns: minmax(0, 1fr);
+        grid-template-rows: auto auto;
+    }
+
+    .skills-group h3 {
+        grid-column: 1;
+        grid-row: 1;
+    }
+
+    .skills-group ul {
+        grid-column: 1;
+        grid-row: 2;
+        border-left: none;
+        padding-left: 1rem;
+        margin-top: 0.5rem;
+    }
+}
+
+/* =========================================================
+    COMPÉTENCES TRANSVERSALES — carte pleine largeur
+   ========================================================= */
+
 .soft-wrap {
-  margin-top: 2rem;
-  text-align: center;
+    margin-top: 2rem;
+    text-align: center;
+    padding: 1.4rem 1.6rem 1.3rem;
+    border-radius: var(--radius);
+    border: 1px solid color-mix(in oklab, var(--accent) 22%, transparent);
+    box-shadow: 0 14px 30px color-mix(in oklab, #000 16%, transparent);
+    position: relative;
+    overflow: hidden;
 }
-.soft-wrap h2 { margin-bottom: .4rem; }
+
+.soft-wrap h2 {
+    margin-bottom: 0.4rem;
+}
+
 .soft-wrap .soft {
-  display: inline-block;
-  text-align: left;
+    display: inline-block;
+    text-align: left;
+    margin: 0.4rem 0 0;
+    padding-left: 1rem;
+}
+
+.soft-wrap .soft li {
+    margin: 0.35rem 0;
+}
+
+/* Dégradé transversales (clair) */
+body:not(.dark) .soft-wrap {
+    background: linear-gradient(135deg,
+            #e9d5ff 0%,
+            #e0e7ff 40%,
+            #ffffff 100%);
+}
+
+/* Dégradé transversales (sombre) */
+body.dark .soft-wrap {
+    background: linear-gradient(135deg,
+            color-mix(in oklab, #020617 70%, var(--bg)) 0%,
+            color-mix(in oklab, var(--accent) 28%, #020617) 45%,
+            color-mix(in oklab, var(--accent) 16%, #000000) 100%);
 }
