@@ -242,17 +242,24 @@ body.dark .skills-group {
 
 .soft-wrap h2 {
     margin-bottom: 0.4rem;
+    color: var(--accent);
 }
 
 .soft-wrap .soft {
     display: inline-block;
     text-align: left;
     margin: 0.4rem 0 0;
-    padding-left: 1rem;
+    padding-left: 0;
+    border-left: none;
 }
 
 .soft-wrap .soft li {
     margin: 0.35rem 0;
+    position: static;
+}
+
+.soft-wrap .soft li::before {
+    content: none;
 }
 
 /* Dégradé transversales (clair) */
