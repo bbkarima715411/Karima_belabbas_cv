@@ -495,4 +495,71 @@ body:not(.dark) #contact::before {
     .wrap {
         max-width: 1100px;
     }
+}/* ============================
+   🔥 OPTIMISATION TAILLES & NAVBAR
+   ============================ */
+
+/* --- NAVBAR AGRANDIE --- */
+:root {
+    --header-h: 88px; /* 72 → 88 */
+}
+
+.site-header {
+    padding: 0 2.4rem;
+}
+
+.site-nav a {
+    font-size: 1.15rem; /* + lisible */
+    padding: 0.6rem 0.9rem;
+}
+
+/* --- BRAND K. --- */
+.brand {
+    font-size: 1.9rem;
+}
+
+/* --- TITRE DU HÉRO (NOM) --- */
+.hero-name {
+    font-size: clamp(3rem, 7vw, 4.6rem);
+}
+
+/* --- INTITULÉ : Développeuse Full-Stack --- */
+.hero-title {
+    font-size: 1.55rem;
+}
+
+/* --- BOUTON Télécharger mon CV --- */
+.hero-actions .btn {
+    font-size: 1.1rem;
+    padding: 0.9rem 1.4rem;
+}
+
+/* --- PROFIL – agrandir photo + bio --- */
+.avatar {
+    width: clamp(240px, 32vw, 300px);
+}
+
+.bio p {
+    font-size: 1.25rem;
+    line-height: 1.85;
+}
+
+/* --- BOUTONS FILTRES PROJETS (Tous / JS / Django...) --- */
+.filters button {
+    font-size: 1.1rem;
+    padding: 0.55rem 1.1rem;
+    border-radius: 12px;
+}
+
+/* --- CONTACT --- */
+#contact p,
+#contact a.btn,
+#contact .note {
+    font-size: 1.3rem;
+}
+
+/* Envie d'échanger ? */
+#contact p:first-of-type {
+    font-size: 1.6rem;
+    font-weight: 700;
 }

@@ -1,9 +1,9 @@
 /* CONTACT — centrage simple */
 .contact {
-  text-align: center;
+    text-align: center;
 }
 
 .note {
-  color: var(--muted);
-  margin-top: 0.8rem;
+    color: var(--muted);
+    margin-top: 0.8rem;
 }

@@ -128,7 +128,9 @@ body.dark .home-hero.intro-done .codebg {
 }
 
 @media (min-width: 768px) {
-    .hero-actions { margin-top: 2.6rem; }
+    .hero-actions {
+        margin-top: 2.6rem;
+    }
 }
 
 @keyframes fadeInTitle {
