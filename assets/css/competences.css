@@ -1,8 +1,8 @@
-/* =========================================================
-   COMPÉTENCES — 4 cartes + transversales
-   - Titre à gauche, ligne verticale, liste à droite
-   - Dégradés plus visibles (clair & sombre)
-   ========================================================= */
+/* 
+    COMPÉTENCES — 4 cartes + transversales
+    - Titre à gauche, ligne verticale, liste à droite
+    - Dégradés plus visibles (clair & sombre)
+    */
 
 /* Grille des 4 cartes de compétences */
 .skills-grid {
@@ -30,27 +30,24 @@
     align-items: flex-start;
     padding: 1.2rem 1.4rem 1.1rem;
     border-radius: var(--radius);
-    border: 1px solid color-mix(in oklab, var(--accent) 22%, transparent);
+    border: none;
     overflow: hidden;
     text-align: left;
-    transition:
-        transform 0.18s ease,
-        box-shadow 0.18s ease,
-        border-color 0.18s ease,
-        background 0.25s ease;
+    transition: none;
+    cursor: default;
 }
 
 /* Dégradé plus marqué en mode clair */
 body:not(.dark) .skills-group {
     background: linear-gradient(135deg,
-            #f3e8ff 0%,
-            /* violet très clair */
-            #e5d9ff 40%,
-            /* violet plus présent */
-            #e0e7ff 100%
-            /* bleu-violet doux */
+            #e0f2ff 0%,
+            /* bleu très clair */
+            #cfe8ff 40%,
+            /* bleu présent */
+            #e6f1ff 100%
+            /* bleu doux */
         );
-    box-shadow: 0 18px 40px rgba(15, 23, 42, 0.25);
+    box-shadow: none;
 }
 
 /* Dégradé sombre/violet en dark mode */
@@ -59,14 +56,20 @@ body.dark .skills-group {
             color-mix(in oklab, #111827 70%, var(--bg)) 0%,
             color-mix(in oklab, var(--accent) 35%, #020617) 45%,
             color-mix(in oklab, var(--accent) 20%, #000000) 100%);
-    box-shadow: 0 16px 34px rgba(0, 0, 0, 0.4);
+    box-shadow: none;
 }
 
 /* Pas d’effet hover dynamique sur les cartes (UX sobre) */
 .skills-group:hover {
     transform: none;
-    box-shadow: inherit;
+    box-shadow: none;
     border-color: inherit;
+    outline: none;
+}
+
+.skills-group:focus,
+.skills-group:focus-visible {
+    outline: none;
 }
 
 /* ===== Titre de catégorie (colonne gauche) ===== */
@@ -242,25 +245,32 @@ body.dark .skills-group {
 
 .soft-wrap h2 {
     margin-bottom: 0.4rem;
+    color: var(--accent);
 }
 
 .soft-wrap .soft {
     display: inline-block;
     text-align: left;
     margin: 0.4rem 0 0;
-    padding-left: 1rem;
+    padding-left: 0;
+    border-left: none;
 }
 
 .soft-wrap .soft li {
     margin: 0.35rem 0;
+    position: static;
+}
+
+.soft-wrap .soft li::before {
+    content: none;
 }
 
 /* Dégradé transversales (clair) */
 body:not(.dark) .soft-wrap {
     background: linear-gradient(135deg,
-            #e9d5ff 0%,
-            #e0e7ff 40%,
-            #ffffff 100%);
+            #e0f2ff 0%,
+            #cfe8ff 40%,
+            #e6f1ff 100%);
 }
 
 /* Dégradé transversales (sombre) */

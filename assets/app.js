@@ -1,6 +1,6 @@
-/* =========================================================
+/* *********************************************************
     app.js — Gestion du mode sombre, intro et fond animé
-   ========================================================= */
+   ********************************************************** */
 
 /* ===== MODE SOMBRE / CLAIR ===== */
 const toggle = document.querySelector(".theme-toggle");
@@ -37,9 +37,9 @@ document.addEventListener("DOMContentLoaded", () => {
         .forEach((el) => el.classList.add("is-in"));
 });
 
-/* =========================================================
+/* *********************************************************
     INTRO : affichage progressif (nom -> fond animé)
-   ========================================================= */
+   ********************************************************** */
 (() => {
     const nameEl = document.getElementById("typing-name");
     const hero = document.querySelector(".home-hero");
@@ -62,9 +62,9 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 })();
 
-/* =========================================================
+/* *********************************************************
     Bouton flottant K. — Haut / Contact
-   ========================================================= */
+   ********************************************************** */
 (() => {
     const btn = document.querySelector('.k-fab');
     if (!btn) return;
@@ -103,18 +103,18 @@ document.addEventListener("DOMContentLoaded", () => {
     onScroll();
 })();
 
-/* =========================================================
+/* *********************************************************
     Marque K. (header) — tooltip accessible
-   ========================================================= */
+   ********************************************************** */
 (() => {
     const brand = document.querySelector('.brand');
     if (!brand) return;
     brand.setAttribute('title', 'Revenir en haut');
 })();
 
-/* =========================================================
+/* *********************************************************
     Titres accroche (morphing de mots)
-   ========================================================= */
+   ********************************************************** */
 (() => {
     const items = Array.from(document.querySelectorAll('h1 .morph'));
     if (!items.length) return;
@@ -184,9 +184,9 @@ document.addEventListener("DOMContentLoaded", () => {
     controllers.forEach((_, el) => io.observe(el));
 })();
 
-/* =========================================================
+/* *********************************************************
     Scrollspy: lien de navigation actif selon la section visible
-   ========================================================= */
+   ********************************************************** */
 (() => {
     const nav = document.querySelector('.site-nav');
     if (!nav || !('IntersectionObserver' in window)) return;
@@ -235,9 +235,9 @@ document.addEventListener("DOMContentLoaded", () => {
     if (document.getElementById('accueil')) setActive('accueil');
 })();
 
-/* =========================================================
+/* *********************************************************
     Menu hamburger (mobile) — ouverture/fermeture nav
-   ========================================================= */
+   ********************************************************** */
 (() => {
     const nav = document.getElementById('primary-nav');
     const toggle = document.querySelector('.nav-toggle');
@@ -260,9 +260,9 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 })();
 
-/* =========================================================
+/* *********************************************************
     FOND ANIMÉ : code qui tombe (canvas)
-   ========================================================= */
+   ********************************************************** */
 (() => {
     const canvas = document.getElementById("codebg");
     if (!canvas) return;
@@ -308,9 +308,9 @@ document.addEventListener("DOMContentLoaded", () => {
     setInterval(draw, 33); // 33ms ≈ 30fps
 })();
 
-/* =========================================================
+/* *********************************************************
     Filtres Portfolio — accessibilité + état "aucun résultat"
-   ========================================================= */
+   ********************************************************** */
 (() => {
     const filterBar = document.querySelector(".filters");
     const buttons = document.querySelectorAll(".filters [data-t]");
@@ -361,9 +361,9 @@ document.addEventListener("DOMContentLoaded", () => {
     // init
     applyFilter("all");
 })();
-/* =========================================================
+/* *********************************************************   
     Apparition progressive des éléments au scroll
-   ========================================================= */
+   ********************************************************** */
 (() => {
     const reveals = document.querySelectorAll("[data-reveal]");
     if (!reveals.length) return;
@@ -404,9 +404,9 @@ document.addEventListener("DOMContentLoaded", () => {
     skills.forEach((s) => io.observe(s));
 })();
 
-/* =========================================================
+/* *********************************************************
     Timelines multiples : progression + “regard” (tracker)
-   ========================================================= */
+   ********************************************************** */
 (() => {
     const wrappers = document.querySelectorAll(".tl-wrap");
     if (!wrappers.length) return;
@@ -551,12 +551,12 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 })();
 
-/* =========================================================
+/* *********************************************************
     Auto-scroll horizontal "lecture guidée" (timeline-cards)
     - Pause à l’interaction, reprise après 2s d’inactivité
     - Ping-pong (gauche ⇄ droite) continu
     - Respecte prefers-reduced-motion
-   ========================================================= */
+   ********************************************************** */
 (() => {
     const containers = document.querySelectorAll('.timeline-cards');
     if (!containers.length) return;
@@ -617,9 +617,9 @@ document.addEventListener("DOMContentLoaded", () => {
         window.addEventListener('beforeunload', () => cancelAnimationFrame(rafId));
     });
 })();
-/* =========================================================
+/* ******************************************************    
     Progression par frise : remplit la barre .rail .progress
-   ========================================================= */
+   ****************************************************** */
 (() => {
     const groups = document.querySelectorAll('.timeline-group');
     if (!groups.length) return;
@@ -647,12 +647,12 @@ document.addEventListener("DOMContentLoaded", () => {
     groups.forEach(attach);
 })();
 
-/* =========================================================
+/* ******************************************************
     TOOLTIP AUTO (Expériences/Formations)
     - Génère le texte depuis <time> + <h3>
     - Accessibilité : focusable + aria-label
     - Mobile : tap pour afficher/masquer
-   ========================================================= */
+   ****************************************************** */
 (() => {
     const cards = document.querySelectorAll('.timeline-cards .card');
     if (!cards.length) return;
@@ -699,11 +699,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 
-/* =========================================================
+/* ******************************************************
     Animation de dégradé par section (fond) quand visible
     - Ajoute .bg-anim-on aux sections visibles (sauf #accueil)
     - Respecte prefers-reduced-motion
-   ========================================================= */
+   ****************************************************** */
 (() => {
     const sections = ['#profil', '#competences', '#experiences', '#projets', '#contact']
         .map((sel) => document.querySelector(sel))

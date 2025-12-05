@@ -157,6 +157,11 @@ a:hover {
     z-index: 100;
 }
 
+body:not(.dark) .site-header {
+    background: #dbeafe; /* light blue */
+    border-bottom: 1px solid color-mix(in oklab, #3b82f6 35%, transparent);
+}
+
 .brand {
     font-weight: 800;
     font-size: 1.5rem;
@@ -244,6 +249,17 @@ a:hover {
 
 .theme-toggle:hover {
     background: color-mix(in oklab, var(--accent) 16%, var(--bg));
+}
+
+/* Light mode: make the dark mode toggle look dark to be intuitive */
+body:not(.dark) .theme-toggle {
+    background: #1f2937; /* slate-800 */
+    color: #ffffff;
+    border-color: #1f2937;
+}
+
+body:not(.dark) .theme-toggle:hover {
+    background: #111827; /* slate-900 */
 }
 
 /* Variante : en mode sombre, le bouton devient clair et le texte plus foncé */
