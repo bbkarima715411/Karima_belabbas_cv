@@ -14,7 +14,7 @@
 }
 
 .avatar {
-    width: clamp(200px, 28vw, 260px);
+    width: clamp(240px, 32vw, 320px);
     aspect-ratio: 1/1;
     object-fit: cover;
     object-position: top center;
@@ -32,8 +32,11 @@
 .about p {
     color: var(--muted);
     max-width: 70ch;
-    line-height: 1.8;
+    line-height: 1.9;
     margin: 0 auto;
+    font-size: 1.2rem;
+    font-weight: 700;
+    font-style: italic;
 }
 
 .facts {

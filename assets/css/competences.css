@@ -254,6 +254,7 @@ body.dark .skills-group {
     margin: 0.4rem 0 0;
     padding-left: 0;
     border-left: none;
+    list-style: none;
 }
 
 .soft-wrap .soft li {

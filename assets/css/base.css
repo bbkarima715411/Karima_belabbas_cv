@@ -158,7 +158,8 @@ a:hover {
 }
 
 body:not(.dark) .site-header {
-    background: #dbeafe; /* light blue */
+    background: #dbeafe;
+    /* light blue */
     border-bottom: 1px solid color-mix(in oklab, #3b82f6 35%, transparent);
 }
 
@@ -180,7 +181,9 @@ body:not(.dark) .site-header {
 
 .site-nav a {
     position: relative;
-    padding: 0.4rem 0.6rem;
+    padding: 0.55rem 0.9rem;
+    font-size: 1.1rem;
+    font-weight: 600;
     transition: color 0.2s;
 }
 
@@ -253,13 +256,15 @@ body:not(.dark) .site-header {
 
 /* Light mode: make the dark mode toggle look dark to be intuitive */
 body:not(.dark) .theme-toggle {
-    background: #1f2937; /* slate-800 */
+    background: #1f2937;
+    /* slate-800 */
     color: #ffffff;
     border-color: #1f2937;
 }
 
 body:not(.dark) .theme-toggle:hover {
-    background: #111827; /* slate-900 */
+    background: #111827;
+    /* slate-900 */
 }
 
 /* Variante : en mode sombre, le bouton devient clair et le texte plus foncé */
@@ -276,19 +281,21 @@ body.dark .theme-toggle:hover {
 .theme-toggle .icon {
     display: inline-flex;
     line-height: 0;
-    opacity: .85;
 }
 
-.theme-toggle .icon.moon {
-    display: none;
+/* Ampoule éteinte en mode clair */
+.theme-toggle .icon.bulb svg {
+    color: #e5e7eb;
+    /* gris clair */
+    filter: drop-shadow(0 0 0 transparent);
+    transition: color .25s ease, filter .25s ease;
 }
 
-body.dark .theme-toggle .icon.sun {
-    display: none;
-}
-
-body.dark .theme-toggle .icon.moon {
-    display: inline-flex;
+/* Ampoule allumée en mode sombre : jaune + halo */
+body.dark .theme-toggle .icon.bulb svg {
+    color: #facc15;
+    /* jaune chaud */
+    filter: drop-shadow(0 0 8px rgba(250, 204, 21, 0.8));
 }
 
 /* --- Animation d'apparition au scroll (commune à tout le site) --- */
@@ -320,12 +327,12 @@ body.dark .theme-toggle .icon.moon {
     filter: blur(4px);
 }
 
-/* Dark mode gradient tweak */
+/* Dark mode gradient: du plus clair au plus foncé (comme en clair) */
 body.dark .morph {
-    /* Violet gradient text in dark mode with good legibility */
+    /* on part d'un violet plus clair vers un violet plus profond proche de var(--accent) */
     background: linear-gradient(90deg,
-            color-mix(in oklab, var(--accent) 90%, #ffffff),
-            color-mix(in oklab, var(--accent) 60%, #ffffff));
+            color-mix(in oklab, var(--accent) 55%, #ffffff 45%),
+            color-mix(in oklab, var(--accent) 95%, #000000 5%));
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -511,13 +518,16 @@ body:not(.dark) #contact::before {
     .wrap {
         max-width: 1100px;
     }
-}/* ============================
+}
+
+/* ============================
    🔥 OPTIMISATION TAILLES & NAVBAR
    ============================ */
 
 /* --- NAVBAR AGRANDIE --- */
 :root {
-    --header-h: 88px; /* 72 → 88 */
+    --header-h: 88px;
+    /* 72 → 88 */
 }
 
 .site-header {
@@ -525,7 +535,8 @@ body:not(.dark) #contact::before {
 }
 
 .site-nav a {
-    font-size: 1.15rem; /* + lisible */
+    font-size: 1.15rem;
+    /* + lisible */
     padding: 0.6rem 0.9rem;
 }
 

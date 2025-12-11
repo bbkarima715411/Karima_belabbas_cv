@@ -15,8 +15,14 @@ function applyAriaThemeState(btn) {
     );
 }
 
-// Appliquer le thème enregistré au chargement
-if (localStorage.getItem("theme") === "dark") {
+// Appliquer le thème au chargement
+// - si aucune préférence, on démarre en dark
+// - sinon on respecte la valeur sauvegardée
+const savedTheme = localStorage.getItem("theme");
+if (!savedTheme) {
+    document.body.classList.add("dark");
+    localStorage.setItem("theme", "dark");
+} else if (savedTheme === "dark") {
     document.body.classList.add("dark");
 }
 applyAriaThemeState(toggle);
@@ -273,7 +279,8 @@ document.addEventListener("DOMContentLoaded", () => {
     const ctx = canvas.getContext("2d");
 
     const letters = "01<>/{}[]#=+-_&$@"; // caractères affichés
-    const fontSize = 14;
+    const fontSize = 20; // taille plus grande pour un code plus visible
+
     let columns = 0;
     let drops = [];
 
@@ -286,11 +293,16 @@ document.addEventListener("DOMContentLoaded", () => {
 
     function draw() {
         const isDark = document.body.classList.contains('dark');
-        ctx.fillStyle = isDark ? "rgba(0,0,0,0.08)" : "rgba(255,255,255,0.08)";
+        // fond des traînées un peu plus marqué
+        ctx.fillStyle = isDark ? "rgba(0,0,0,0.16)" : "rgba(255,255,255,0.14)";
         ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-        // Couleur des caractères: bleu encore plus foncé en thème clair, violet en sombre
-        ctx.fillStyle = isDark ? "rgba(187, 134, 252, 0.85)" : "rgba(15, 30, 77, 0.95)"; // ~#0F1E4D
+        // Couleur des caractères : plus foncé et plus contrasté
+        ctx.fillStyle = isDark ?
+            "rgba(167, 139, 250, 0.95)" // violet très visible en sombre
+            :
+            "rgba(15, 23, 42, 0.98)"; // bleu-noir en clair (~#0F172A)
+
         ctx.font = fontSize + "px monospace";
 
         for (let i = 0; i < drops.length; i++) {
